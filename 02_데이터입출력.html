@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터 입출력</title>
+    <style>
+        .area {
+            border : 1px solid black;
+            width: 300px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    
+    <!--
+        * 자바스크립트에서도 객체라는 개념이 존재
+          객체들 사이에서도 상위-하위 관계를 따질 수 있음!!
+
+        * 자바스크립트의 최상위 내장객체들
+
+        1. window : 자바스트립트의 제일 최상위 내장 객체
+                    "브라우저 창" 이 하나 열릴 때마다 내부적으로 하나씩 생성되는 객체
+                    즉, 브라우저 창 1개를 나타내는 객체임!!
+                    (브라우저 창 안에 존재하는 모든 요소들의 최상위 (부모) 객체)
+                    window 계열 구문들은 모든 곳에 다 적용 가능하다!!
+                    그래서 보통은 window. 은 생략해서 작성한다.
+                    예) window.alert(); -> alert();
+                        window.console.log(); -> console.log();
+
+        2. document : window 의 자식객체들 중 하나
+                      "웹 문서 (html 문서 파일) 하나 당 한개씩 갖고 있는 객체"
+                      즉, html 파일 1개를 나타내는 객체임!!
+                      (HTML 문서에 대한 정보들을 가지고 있음)
+    -->
+
+    <h1>자바스크립트에서의 데이터 입출력 (입출력 구문)</h1>
+
+    <h2>1. 데이터를 출력하는 기본 구문</h2>
+
+    <p>
+        1) window.alert("알림창에 출력할 문구"); <br>
+        2) window.console.log("콘솔창에 출력할 문구") <br>
+        3) document.write("화면에 출력할 문구");
+        4) 선택한요소.innerHTML/innerText = "해당요소에 출력할 문구";
+    </p>
+
+    <br><br>
+
+    <h3>1) window.alert("알림창에 출력할 문구");</h3>
+
+    <button type="button" onclick="alert('잘 출력 되나..?');">
+        알림창에 출력
+    </button>
+
+    <br><br>
+
+    <h3>2) window.console.log("콘솔창에 출력할 문구");</h3>
+
+    <button type="button" onclick="console.log('잘 출력 되나..?');">
+        콘솔창에 출력
+    </button>
+
+    <!--
+        window 계열의 출력문은
+        브라우저에 내장된 xxx 에 출력하는 개념 (previewer 에서는 테스트 불가)
+    -->
+
+    <br><br>
+
+    <h3>3) document.write("화면에 출력할 문구")</h3>
+
+    <button type="button" onclick="documentWrite();">
+        화면에 출력
+    </button>
+
+    <script>
+        function documentWrite() {
+
+            // 테스트1
+            // document.write("잘 출력 되나..?")
+            // > 기본 동작 원리는
+            //   이 html 문서의 body 태그의 인자값을 넣어서 
+            //   화면에 대놓고 출력해주는 원리임!!
+
+            // 테스트2
+            // > 출력할 문구에 html 태그를 문자열로써 포함시킬 경우에는?
+            // document.write("<h1>잘 출력되나..?</h1>");
+            // > 출력할 문자열에 html 태그가 있을 경우
+            //   진짜 html 태그로 해석되서 보여짐!!
+
+            var table = "<table border='1'>";
+
+                table += "<tr>";
+                table += "<td>1</td>";
+                table += "<td>2</td>";
+                table += "</tr>";
+
+                table += "</table>";
+
+            document.write(table);
+        }
+    </script>
+
+    <br><br>
+
+    <h3>4) 선택한요소.innerHTML/innserText = "해당요소에 출력할 문구";</h3>
+
+    <!-- 사실상 document 계열의 구문임 (즉, 화면에 출력해줌) -->
+
+    <div class="area" id="area1">
+        자바스크립트에서 어떤 요소 (element) 안의 값 (content 영역 값)
+        을 가지고 온다거나, 변경하고자 할때 <b>innerHTML, innerText</b>
+        라는 속성에 접근해서 처리할 수 있다.
+    </div>
+
+    <br>
+
+    <button type="button" onclick="tagValue();">
+        확인해보기
+    </button>
+
+    <script>
+        function tagValue() {
+
+            // 특정 html 요소의 시작태그와 종료태그 사이의 값
+            // (content 영역 값) 을 가지고 온다거나, 변경하고자 할 때
+            // innerHTML, innerText 속성을 씀!!
+            // > 이 때, 우선적으로 항상 해당 html 요소 객체를
+            //   자바스크립트 코드 상으로 끌고 와서 변수에 담아 둘 것!!
+
+            var divEl = document.getElementById("area1");
+            // <div class="area" id="area1">~~~~</div>
+            
+            console.log(divEl);
+            console.dir(divEl);
+            // > console.dir : 해당 값의 디렉토리 구조를 보고자 할 때
+            //                 쓰는 출력문 (하위 속성들에 대한 정보)
+
+            // divEl 요소 객체의 id, className 속성값 확인!!
+            // > 하위 속성값을 확인하고 싶다면 . 을 통해서 직접 접근이 가능하다!!
+            //   객체명.속성명 (O)
+
+            // 참고)
+            // > 자바에서는 객체의 필드에 직접 접근 불가 (private - 캡술화)
+            //   객체명.필드명 (X)
+
+            console.log(divEl.id); // area1
+            // > 해당 요소 객체의 아이디속성값 : id
+            console.log(divEl.className); // area
+            // > 해당 요소 객체의 클래스속성값 : className
+
+            console.log(divEl.innerHTML);
+            // > 해당 요소의 content 영역 안의 html 태그까지 다 포함 : innerHTML
+            console.log(divEl.innerText);
+            // > 해당 요소의 content 영역 안의 순수 텍스트만 포함 : innerText
+            //   (즉, html 태그는 가져오지 않음)
+            
+            // 위와 같이 속성에 직접 접근해서 값을 가지고 오는 것도 가능하지만
+            // 반대로 직접 접근해서 값을 대입구문을 통해 변경하는 것 또한 가능하다!!
+            
+            // divEl.innerHTML = "안녕하세요";
+            // divEl.innerText = "안녕히가세요";
+
+            // divEl.innerHTML = "<b>innerHTML 로 속성값을 변경함</b>"
+            // innerHTML 로 변경하면 출력할 문구에 html 태그가 있을 경우
+            // 진짜 태그로 인식함!!
+
+            divEl.innerText = "<b>innerText 로 속성값을 변경함</b>";
+            // innerText 로 변경하면 출력할 문구에 html 태그가 있을 경우
+            // 태그로 인식하지 않고 문자열 그대로 인식함!!
+
+            // divEl 에 onclick 속성 추가해보기
+            divEl.onclick = function() {
+
+                alert("안녕?");
+            };
+            // > 사실 아까 배운 순수 내부방식 구문도
+            //   요소 객체에 대놓고 onclick 이라는 속성에 값 (function) 을
+            //   대입했던 것!!
+            // > click 이벤트를 버튼 말고 다른 요소에도 부여할 수 있음!!
+
+            console.dir(divEl);
+
+        }
+    </script>
+
+    <!--
+        document 계열의 출력문들은
+        화면에 출력하는 개념 (즉, 문서 상에 출력하는 개념)
+    -->
+
+    <br><br>
+
+    <hr>
+
+    <h2>2. 데이터를 입력받는 기본 구문 (변수에 기록 가능)</h2>
+
+    <p>
+        1) 변수 = window.confirm("질문내용"); <br>
+        2) 변수 = window.prompt("질문내용"); <br>
+        3) 변수 = 선택한input요소.value;
+    </p>
+
+    <br><br>
+
+    <h3>1) window.confirm("질문내용");</h3>
+
+    <p>
+        - confirm 호출 시 "질문내용" 과 "확인/취소" 버튼이 존재하는
+          알림창이 발생된다. <br>
+        - 확인 버튼 클릭 시 true / 취소 버튼 클릭 시 false 를 반환한다.
+    </p>
+
+    <button type="button" onclick="testConfirm();">
+        클릭해보세요
+    </button>
+
+    <div class="area" id="area2"></div>
+
+    <script>
+        function testConfirm() {
+
+            var result = confirm("졸리면 확인, 아니면 취소를 누르세요.");
+
+            // console.log(result);
+
+            var divEl = document.getElementById("area2");
+
+            if(result) {
+                // > 졸릴 경우
+
+                divEl.innerHTML = "<h2 style='color : red;'>졸려요ㅠㅠ</h2>"
+
+            } else {
+                // > 안졸릴 경우
+
+                divEl.innerHTML = "<h2 style='color : green;'>안졸립니다^^</h2>";
+            }
+        }
+    </script>
+
+    <br><br>
+
+    <h3>2) window.prompt("질문내용");</h3>
+
+    <p>
+        - prompt 호출 시 "질문내용" 과 입력할 수 있는 "텍스트상자" 와
+          "확인/취소" 버튼이 보여지는 알림창이 발생된다. <br>
+        - 확인버튼 클릭 시 텍스트 상자에 입력되어있는 값 반환 <br>
+        - 취소버튼 클릭 시 null 을 반환 <br>
+        - 아무것도 입력 안하고 확인버튼 클릭 시 빈 문자열 ("") 이 반환
+    </p>
+
+    <button type="button" onclick="testPrompt();">
+        클릭해보세요
+    </button>
+
+    <div class="area" id="area3"></div>
+
+    <script>
+        function testPrompt() {
+
+            var name = prompt("당신의 이름은 무엇입니까?");
+            var age = prompt("당신의 나이는 몇살입니까?");
+
+            // console.log(name);
+            // console.log(age);
+
+            // console.log(name, age);
+            // > console.log 에 인자값으로 출력할 내용을
+            //   여러개 제시할 수 있음!! (알아서 한줄로 이어져서 출력됨)
+
+            // "앗! 당신이 바로 xx살 xxx님 이군요..! 반갑습니다^^"
+            // 형태로 출력
+
+            var divEl = document.getElementById("area3");
+
+            divEl.innerHTML = "<b>앗! 당신이 바로 " + age + "살 "
+                                + name + "님 이군요..! 반갑습니다^^";
+
+        }
+    </script>
+
+    <br><br>
+
+    <button type="button" onclick="testPrompt2();">
+        숫자 입력
+    </button>
+
+    <ul id="ul1"></ul>
+
+    <script>
+        function testPrompt2() {
+
+            var num = window.prompt("숫자만을 입력하세요.");
+
+            /*
+                자바의 for문
+                for(int i = 0; i < num; i++) {
+                
+                }
+
+                - 반복이 num 번 진행됨!!
+            */
+
+            var str = "";
+
+            // 자바스크립트의 for문
+            for(var i = 0; i < num; i++) {
+
+                str += "<li>안녕하세요" + i + "</li>";
+            }
+
+            var ulEl = document.getElementById("ul1");
+
+            ulEl.innerHTML = str;
+        }
+    </script>
+
+    <!--
+        window 계열의 입력구문들은
+        브라우저의 xxx 를 통해 입력을 받는 구문들임
+        (previewer 로 테스트가 불가능하다)
+    -->
+
+    <br><br>
+
+    <h3>3) 선택한input요소.value;</h3>
+
+    아이디 : <input type="text" id="userId"> <br>
+    비밀번호 : <input type="password" id="userPwd"> <br>
+
+    <button onclick="testInput();">로그인</button>
+
+    <script>
+        function testInput() {
+
+            // 사용자가 input 텍스트상자에 키보드로 입력한 값 꺼내오기
+            var input1 = document.getElementById("userId"); // <input id="userId"> 
+            var input2 = document.getElementById("userPwd"); // <input id="userPwd">
+
+            // console.log(input1);
+            // console.log(input2);
+
+            // console.dir(input1);
+
+            // console.log(input1.value);
+            // console.log(input2.value);
+
+            // 반대로 input 요소의 value 속성에 값을 대입할 수도 있다.
+            // input1.value = "admin";
+
+            // user01, pass01 에 대한 계정이 있다라는 가정 하에
+            // 로그인 성공, 실패 여부를 alert 로 출력
+            if((input1.value == "user01") && (input2.value == "pass01")) {
+                // > 모두 일치할 경우 : 로그인 성공
+
+                alert("로그인 성공!");
+
+            } else {
+                // > 하나라도 틀릴 경우 : 로그인 실패
+
+                alert("로그인 실패!")
+            }
+
+            // 각각의 텍스트 상자에 초기화 효과
+            input1.value = "";
+            input2.value = ""
+        }
+    </script>
+
+    <br><br>
+
+    <h4>게시글 작성</h4>
+
+    제목 : <input type="text" id="title"> <br>
+    내용 : <textarea id="content"></textarea> <br>
+
+    <button onclick="testInput2();">등록</button>
+
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>제목</th>
+                <th>내용</th>
+            </tr>
+        </thead>
+        <tbody id="list"></tbody>
+    </table>
+
+    <script>
+        function testInput2() {
+
+            // 위에서 사용자가 입력한 제목, 내용 요소 객체를 변수로 담기
+            var title = document.getElementById("title"); // <input id="title">
+            var content = document.getElementById("content"); // <textarea></textarea>
+
+            // console.log(title.value);
+            // console.log(contnet.value);
+            // > ckarhfh textarea 또한 입력한 값이 value 속성에 담겨있음!!
+
+            var list = document.getElementById("list"); // <tbody></tbody>
+
+            var str = "<tr>";
+
+                str += "<td>" + title.value + "</td>";
+                str += "<td>" + content.value + "</td>";
+
+                str += "</tr>";
+
+            list.innerHTML += str;
+            // > 속성값을 += 으로 연이어줄 수 있다!!
+
+            // 입력창에 입력 완료 후 초기화 효과
+            title.value = "";
+            content.value = "";
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <!--
+        자바스크입트 연습문제 디펜스
+
+        명심할 사항 : 제어문, 연산자는 자바랑 똑같음!!
+    -->
+
+    <!--
+        연습문제 1
+        prompt 를 이용해서 사용자로부터
+        숫자 입력을 받은 후 그 숫자가 짝수, 홀수인지 판별
+        그 결과를 div (#area4) 에 출력해보기
+    -->
+
+    <button onclick="practice1();">숫자만 입력하세요</button>
+
+    <div id="area4" class="area"></div>
+
+    <script>
+        function practice1() {
+            
+            var num = prompt("숫자만 입력하세요");
+
+            var divEl = document.getElementById("area4");
+            
+            if((num % 2) == 0){
+                // 짝수일 경우
+
+                divEl.innerHTML = "<h3>짝수입니다.</h3>";
+            
+            } else {
+                // > 홀수일 경우
+
+                divEl.innerHTML = "<h3>홀수입니다.</h3>";
+            }
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <!--
+        연습문제 2
+        사람 수와 사탕 갯수를 입력받아
+        한 사람당 나눠가질 수 있는 사탕의 갯수와
+        남는 사탕의 갯수를 label 로 출력하되,
+        "한 사람당 xx개의 사탕을 나눠가질 수 있고, xx개의 사탕이 남습니다."
+        형식으로 출력
+    -->
+
+    사람 수 : <input type="number" id="person"> <br>
+    사탕 갯수 : <input type="number" id="candy"> <br>
+
+    <button onclick="practice2()">남는 사탕 갯수 확인하기</button>
+
+    <br><br>
+
+    <label id="result"></label>
+
+    <script>
+        function practice2() {
+
+            // 각각의 사람 수 와 사탕 갯수를 뽑아서 변수에 담기
+            var person = document.getElementById("person").value;
+            var candy = document.getElementById("candy").value;
+
+            // console.log(person, candy); 
+
+            var result = document.getElementById("result"); // <label></label>
+
+            result.innerText
+                = "한 사람당 " + Math.floor(candy / person) + "개의 사탕을 나눠가질 수 있고, " 
+                    + (candy % person) + "개의 사탕이 남습니다."
+            // > 자바스크립트에서는 숫자타입으로 정수, 실수를 모두 다 커버한다!!
+            //   (자바처럼 정수, 실수 타입이 나눠지지 않음)
+            // > 그래서 나눗셈의 결과가 실수로 출력됨!!
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <!--
+        연습문제 3
+        구매할 과일명을 입력받고,
+        사과 : 1000원, 바나나 : 2000원, 딸기 : 3000원, 복숭아 : 4000원, 키위 : 5000원
+        해당 과일의 가격을 alert 로 출력
+        단, 없는 과일명을 입력했을 경우에는
+        "우리 가게에서 판매하는 과일이 아닙니다." 출력
+    -->
+
+    <fieldset>
+        <legend>메뉴판</legend>
+
+        <ul>
+            <li>사과</li>
+            <li>바나나</li>
+            <li>딸기</li>
+            <li>복숭아</li>
+            <li>키위</li>
+        </ul>
+
+    </fieldset>
+
+    <br><br>
+
+    구매할 과일명 : <input type="text" id="fruit"> <br>
+
+    <button onclick="practice3()">가격 확인하기</button>
+
+    <script>
+        function practice3() {
+
+            // 구매할 과일명을 변수에 담아두기
+            var fruit = document.getElementById("fruit").value;
+            
+            var result = "";
+            
+            switch(fruit) {
+            
+            case "사과" :
+                result = "사과의 가격은 1000원 입니다.";
+                break;
+            case "바나나" :
+                result = "바나나의 가격은 2000원 입니다.";
+                break;
+            case "딸기" :
+                result = "딸기의 가격은 3000원 입니다.";
+                break;
+            case "복숭아" :
+                result = "복숭아의 가격은 4000원 입니다.";
+                break;
+            case "키위" :
+                result = "키위의 가격은 5000원 입니다.";
+                break;
+            default:
+                result = "우리 가게에서 판매하는 과일이 아닙니다.";
+            }
+
+            alert(result);
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <!--
+        연습문제4
+        버튼 클릭 시 confirm 으로
+        "프로그램을 종료하시겠습니까?" 라고 물어본 후
+        확인 버튼 클릭 시 result2 에 "프로그램을 종료합니다." 라고 출력
+    -->
+
+    <button onclick="practice4();">종료하기</button>
+
+    <br>
+
+    <h1 id="result2"></h1>
+
+    <script>
+        function practice4() {
+            
+            var answer = confirm("프로그램을 종료하시겠습니까?");
+
+            var h1El = document.getElementById("result2");
+
+            if(answer){
+
+                h1El.innerHTML = "프로그램을 종료합니다.";
+                
+                window.close();
+            }
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <!--
+        연습문제 5
+
+        사용자로부터 양수를 하나 입력받은 후
+        1 에서부터 해당 양수까지 모든 숫자를 순차적으로
+        ul 안에 li 태그로 출력하기
+    -->
+    양수 입력 : <input type="number" min="1" id="num1"> <br>
+
+    <button onclick="practice5();">순차적으로 출력</button>
+
+    <br><br>
+
+    <ul id="ul2">
+
+    </ul>
+
+    <script>
+        function practice5() {
+            var num1 = document.getElementById("num1").value;
+            
+            var ul2 = document.getElementById("ul2");
+            
+            var strEl = "";
+            for(var i = 1; i <= num1; i++){
+                strEl += "<li>" + i + "</li>";
+            }
+            ul2.innerHTML += strEl;
+        }
+    </script>
+
+    <br>
+
+    <hr>
+
+    <!--
+        연습문제 6
+
+        사용자로부터 정수 양수 숫자 한개를 입력받은 후
+        1 에서부터 해당 양수까지의 모든 숫자의 누적합을 구해서
+        sum 에 출력하기
+    -->
+
+    양수 입력 : <input type="number" min="1" id="num2"> <br>
+    <button onclick="practice6();">누적합 출력</button>
+
+    <br><br>
+
+    <h1 id="sum"></h1>
+
+    <script>
+        function practice6() {
+            var num2 = document.getElementById("num2").value;
+
+            var sum = document.getElementById("sum");
+            var h1El = 0;
+            for(var i = 1; i <= num2; i++) {
+                h1El += i;
+            }
+            sum.innerHTML = h1El;
+        }
+    </script>
+
+    <br>
+    <hr>
+
+    <!--
+        연습문제 7
+
+        사용자로부터 2 ~ 9 사이의 정수 양수 숫자 한개를 입력받은 후
+        해당 단의 구구단을 출력하기
+        단, 2 ~ 9 사이의 정수가 아닌 수를 입력한 경우에는
+        alert 로 "잘못 입력했습니다." 를 출력
+    -->
+
+    단 입력 : <input type="number" min="2" max="9" id="num3"> <br>
+    <button onclick="practice7();">구구단 보기</button>
+
+    <ul id="ul3">
+
+    </ul>
+
+    <script>
+        function practice7() {
+            var num3 = document.getElementById("num3").value;
+
+            var ul3 = document.getElementById("ul3");
+            var ulEl = "";
+            if(2 <= num3 && num3 <= 9){
+                for(var i = 1; i <= 9; i++){
+                    ulEl += "<li>" + num3 + " * " + i + " = " + (num3*i) + "</li>";
+                }
+            } else {
+                alert("잘못 입력했습니다.");
+            }
+            ul3.innerHTML = ulEl;
+        }
+    </script>
+
+    <br>
+    <hr>
+
+    <!--
+        연습문제 8
+
+        prompt 로 점수를 입력받고 
+        그 점수에 따라 label (grade) 에 아래의 등급을 출력하기
+        90점 이상은 A 등급
+        80점 이상 90점 미만은 B 등급
+        70점 이상 80점 미만은 C 등급
+        70점 미만은 D 등급
+        단, 제대로 된 점수 (0 ~ 100 점 사이) 가 아닐 경우
+        "잘못된 점수 입니다." 라고 출력
+    -->
+
+    <button onclick="practice8();">
+        점수 입력하기
+    </button>
+
+    <br><br>
+
+    <label id="grade"></label>
+
+    <script>
+        function practice8() {
+            var score = prompt("점수를 입력하세요.");
+            var grade = document.getElementById("grade");
+            var result = "";
+            if(90 <= score && score <= 100) {
+                result = "A 등급";
+            } else if(80 <= score && score < 90) {
+                result = "B 등급";
+            } else if(70 <= score && score < 80) {
+                result = "C 등급";
+            } else if(0 <= score && score < 70) {
+                result = "D 등급";
+            } else {
+                result = "잘못된 점수 입니다."
+            }
+            grade.innerHTML = result;
+        }
+    </script>
+
+    <br>
+    <hr>
+
+    <!--
+        연습문제 9
+
+        나이를 입력받고
+        그 나이에 따라 어린이, 청소년, 성인을 판별해서 alert 로 출력하기
+        13세 이하 : 어린이
+        13세 초과 19세 이하 : 청소년
+        19세 초과 : 성인
+        단, 제대로 된 나이가 아닐 경우
+        "잘못 입력했습니다." 라고 출력
+    -->
+
+    나이 : <input type="number" id="age">
+
+    <br><br>
+
+    <button onclick="practice9();">
+        확인하기
+    </button>
+
+    <script>
+        function practice9() {
+            var age = document.getElementById("age").value;
+
+            var result = "";
+            if(0 < age && age <= 13) {
+                result = "어린이";
+            } else if(13 < age && age <= 19) {
+                result = "청소년";
+            } else if(19 < age) {
+                result = "성인";
+            } else {
+                result = "잘못 입력했습니다."
+            }
+            alert(result);
+        }
+    </script>
+
+    <br>
+    <hr>
+
+    <!--
+        연습문제 10
+
+        2단부터 9단까지 전체 구구단을 출력
+        단, 아래의 형식을 맞춰서 출력할것
+
+        <fieldset>
+            <legend>x단</legend>
+            x * x = x
+            x * x = x
+            x * x = x
+            x * x = x
+            x * x = x
+            x * x = x
+            x * x = x
+            x * x = x
+            x * x = x
+        </fieldset>
+    -->
+
+    <button onclick="practice10();">
+        전체 구구단 출력
+    </button>    
+
+    <div id="result3"></div>
+
+    <script>
+        function practice10() {
+            var result = document.getElementById("result3");
+
+            var divEl = "";
+            for(var i = 2; i <= 9; i++){
+                divEl += "<fieldset>";
+                divEl += "<legend>" + i + "단</legend>";
+                for(var j = 1; j <= 9; j++) {
+                    divEl += i + " * " + j + " = " + (i*j);
+                    if(j != 9){
+                        divEl += "<br>";
+                    }
+                }
+                divEl += "</fieldset>";
+            }
+
+            result.innerHTML = divEl;
+        }
+    </script>
+
+</body>
+</html>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
