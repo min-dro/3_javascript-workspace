@@ -731,21 +731,39 @@
 
     <script>
         function practice8() {
+
+            // prompt 로 점수 입력받기
             var score = prompt("점수를 입력하세요.");
-            var grade = document.getElementById("grade");
-            var result = "";
-            if(90 <= score && score <= 100) {
-                result = "A 등급";
-            } else if(80 <= score && score < 90) {
-                result = "B 등급";
-            } else if(70 <= score && score < 80) {
-                result = "C 등급";
-            } else if(0 <= score && score < 70) {
-                result = "D 등급";
+
+            // 출력할 요소를 먼저 선택하기
+            var grade = document.getElementById("grade"); // <label></label>
+
+            // 우선 등급을 판별하기 전에 제대로된 점수인지 먼저 확인
+            if((0 <= score) && (score <= 100)) {
+                // 제대로된 점수 구간일 경우
+                
+                if(90 <= score) {
+
+                    grade.innerHTML = "A 등급";
+                
+                } else if((80 <= score) /* && (score < 90) */) {
+                
+                    grade.innerHTML = "B 등급";
+                
+                } else if((70 <= score) /* && (score < 80) */) {
+                
+                    grade.innerHTML = "C 등급";
+                
+                } else {
+                
+                    grade.innerHTML = "D 등급";
+                }
+
             } else {
-                result = "잘못된 점수 입니다."
+                // > 제대로된 점수 구간이 아닐 경우
+
+                grade.innerHTML = "잘못된 점수 입니다."
             }
-            grade.innerHTML = result;
         }
     </script>
 
@@ -821,22 +839,30 @@
 
     <script>
         function practice10() {
-            var result = document.getElementById("result3");
 
-            var divEl = "";
+            // 결과를 출력할 요소 먼저 선택
+            var result3 = document.getElementById("result3");
+
+            var str = "";
+
+            // 2단부터 9단까지
             for(var i = 2; i <= 9; i++){
-                divEl += "<fieldset>";
-                divEl += "<legend>" + i + "단</legend>";
+
+                str += "<fieldset>";
+                str += "<legend>" + i + "단</legend>";
+                
+                // 1 ~ 9 까지 각각 곱하기
                 for(var j = 1; j <= 9; j++) {
-                    divEl += i + " * " + j + " = " + (i*j);
-                    if(j != 9){
-                        divEl += "<br>";
-                    }
+
+                    str += i + " * " + j + " = " + (i*j) + "<br>";
                 }
-                divEl += "</fieldset>";
+
+                str += "</fieldset>";
             }
 
-            result.innerHTML = divEl;
+            // 최종 결과를 출력 (innerHTML)
+            result3.innerHTML = str;
+            
         }
     </script>
 

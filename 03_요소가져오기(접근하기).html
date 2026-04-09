@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요소 가져오기 (접근하기)</title>
+    <style>
+        .area {
+            border : 1px solid black;
+            width : 300px;
+            height : 100px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>HTML 요소에 접근하기 (해당 요소객체 가져오기)</h1>
+
+    <!--
+        * CSS 의 선택자 ("무엇을" 어떻게 꾸밀꺼냐)
+
+        1. * : 모든 (전체) 선택자
+        2. 태그명 : 태그 선택자
+        3. #아이디명 : 아이디 선택자 <=
+        4. .클래스명 : 클래스 선택자
+    -->
+
+    <h3>1) 아이디로 접근하기</h3>
+
+    <!-- CSS 의 아이디 선탯자 역할 -->
+
+    <div id="area1" class="area"></div>
+    <button onclick="accessId();">
+        아이디로 접근
+    </button>
+
+    <script>
+        function accessId() {
+
+            // 아이디로 요소에 접근할 때
+            // document.getElementByID("아이디명");
+
+            var area1 = document.getElementById("area1");
+
+            console.log(area1);
+            console.dir(area1);
+
+            // 선택된 요소의 속성들에 접근해서 값을 가져온다거나 변경 가능
+            // 이 때, 속성에 접근하고자 한다면 . 을 통해 직접 접근이 가능함
+            // > 선택된요소.접근할속성명
+
+            area1.innerHTML += "아이디로 접근 성공! <br>";
+
+            // 선택된 요소에 스타일 변경
+            console.log(area1.style);
+            // > 선택된 요소의 style 속성에 접근하면
+            //   현재 이 요소에 적용된 스타일 정보들을 확인 가능하고,
+            //   반대로 속성값을 대입함으로써 스타일 정보를 변경 가능함!!
+            //   단, 자바스크립트의 .style 속성 안에는
+            //   "인라인 스타일 방식" 으로 적용된 내용만 보이게 됨!!
+
+            // console.log(area1.style.backgroundColor);
+            // console.log(area1.style.border);
+
+            area1.style.background = "pink";
+            // > .style 속성을 건들여서 스타일을 입히면
+            //   마찬가지로 "인라인 스타일 방식" 으로 적용됨!!
+            // > CSS 의 스타일 속성명과 자바스크립트의 스타일 속성명이 다르다!!
+            //   CSS 에서는 background-color, 자바스크립트에서는 backgroundColor
+            //   (자주 쓰이는 스타일 속성명은 외워두면 편하다!!)
+
+            // console.log(area1.style.backgroundColor);
+
+            area1.style.color = "red";
+            area1.style.width = "100px";
+            area1.style.height = "300px";
+            area1.style.border ="3px solid red";
+        }
+    </script>
+
+    <br><br>
+
+    <div id="area2" class="area" style="background-color : red;"></div>
+
+    <button onclick="accessId2();">
+        클릭마다 색 변경
+    </button>
+
+    <script>
+        function accessId2() {
+            
+            var area2 = document.getElementById("area2");
+
+            // console.log(area2.style.backgroundColor);
+
+            if(area2.style.backgroundColor == "red") {
+
+                area2.style.backgroundColor = "orange";
+
+            } else if(area2.style.backgroundColor == "orange") {
+
+                area2.style.backgroundColor = "yellow";
+
+            } else if(area2.style.backgroundColor == "yellow") {
+
+                area2.style.backgroundColor = "green";
+
+            } else if(area2.style.backgroundColor == "green") {
+
+                area2.style.backgroundColor = "blue";
+
+            } else if(area2.style.backgroundColor == "blue") {
+
+                area2.style.backgroundColor = "navy";
+
+            } else if(area2.style.backgroundColor == "navy") {
+
+                area2.style.backgroundColor = "purple";
+
+            } else {
+
+                area2.style.backgroundColor = "red";
+            }
+            // > 위의 if 문은 switch 문 으로도 바꿔 쓸 수 있다!!
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h3>2) 태그명으로 접근하기</h3>
+
+    <!-- CSS 의 태그선택자 역할 -->
+
+    <!-- ul>li{목록$}*5 + Enter -->
+    
+    <ul>
+        <li>목록1</li>
+        <li>목록2</li>
+        <li>목록3</li>
+        <li>목록4</li>
+        <li>목록5</li>
+    </ul>
+
+    <button onclick="accessTagName();">
+        태그명으로 접근
+    </button>
+
+    <script>
+        function accessTagName() {
+
+            // 태그명으로 요소에 접근할 때
+            // 변수 = document.getElementsByTagName("태그명");
+            // > 선택된 여러개의 요소객체들이 "배열" 에 담겨서 반환
+            //   (자바스크립트에서의 배열은 [] 로 표현)
+
+            var list = document.getElementsByTagName("li");
+                                        // [li, li, li, li, li]
+
+            console.log(list);
+            console.log("배열의 크기 (선택된 li 요소의 갯수) : " + list.length);
+            
+            // list[0].innerHTML = "안녕하세요";
+            // list[1].innerHTML = "반갑습니다";
+            // list[2].innerHTML = "안녕히가세요";
+
+            // 반복문 활용해보기
+            var blueColor = 50;
+
+            for(var i = 0; i < list.length; i++) {
+
+                list[i].innerHTML = "안녕하세요" + (i + 1);
+
+                // list[i].style.backgroundColor = "red(130, 220, 50)";
+
+                list[i].style.backgroundColor = "rgb(130, 220, " + blueColor + ")";
+
+                blueColor += 50; // blueColor = blueColor + 50;
+            }
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h3>3) name 속성값으로 접근하기</h3>
+
+    <!-- CSS 에서 input[name=xxx] 와 같은 역할 -->
+
+    <form action="test" method="get">
+
+        <fieldset>
+            <legend>취미</legend>
+
+            <!-- (input[type]) -->
+
+            <input type="checkbox" name="hobby" value="game" id="game">
+            <lable for="game">게임</lable>
+            <input type="checkbox" name="hobby" value="music" id="music">
+            <lable for="music">음악</lable>
+            <input type="checkbox" name="hobby" value="hiking" id="hiking">
+            <lable for="hiking">등산</lable>
+            <br>
+            <input type="checkbox" name="hobby" value="reading" id="reading">
+            <lable for="reading">독서</lable>
+            <input type="checkbox" name="hobby" value="movie" id="movie">
+            <lable for="movie">영화</lable>
+            <input type="checkbox" name="hobby" value="sports" id="sports">
+            <lable for="sports">운동</lable>
+
+        </fieldset>
+
+        <br>
+
+        <input type="checkbox" id="checkAll">
+        <label for="checkAll">전체 체크하기</label>
+
+        <br>
+
+        <div id="area3" class="area"></div>
+
+        <button type="button" onclick="accessName();">
+            name 으로 접근
+        </button>
+
+    </form>
+
+    <script>
+        function accessName() {
+
+            // name 속성값으로 요소를 가져올 때
+            // document.getElementByName("name 속성값");
+            // > radio 나 checkbox 계열은 한 그룹끼리 name 속성값을 동일하게 적어주기 때문에
+            //   마찬가지로 선택된 열개의 요소 객체들이 "배열" 에 담겨서 반환됨!!
+
+            var hobby = document.getElementsByName("hobby");
+                        // [input, input, input, input, input, input]
+
+            // console.log(hobby);
+            // console.log(hobby.length);
+
+            // 반복문 활용해보기
+            var checkedItem = "";
+            
+            for(var i = 0; i < hobby.length; i++) {
+
+                // console.log(hobby[i]);
+                // console.dir(hobby[i]);
+
+                // 현재 반복중인 체크박스가 현재 체크된 상태인지 아닌지도 속성을 통해 확인 가능!!
+                // > checked 속성을 통해 확인할 수 있다.
+                // console.log(hobby[i].checked);
+                // > 체크된 상태면 true, 체크되지 않은 상태면 false
+
+                if(hobby[i].checked) {
+
+                    checkedItem += hobby[i].value + "<br>";
+                }
+            }
+
+            // console.log(checkedItem);
+
+            // var divEl = document.getElementById("area3");
+            // divEl.innerHTML = checkedItem;
+
+            document.getElementById("area3").innerHTML = checkedItem;
+        }
+
+        // 아이디가 checkAll 요소가 클릭되었을 때 실행할 함수 대입
+        document.getElementById("checkAll").onclick = function() {
+
+            // name 이 hobby 인 요소들만 선택
+            var hobby = document.getElementsByName("hobby");
+
+            if(document.getElementById("checkAll").checked) {
+                // > 전체 체크하기 체크박스가 현재 체크된 상태라면
+                //   모든 취미를 다 체크해주기
+
+                for(var i = 0; i < hobby.length; i++){
+
+                    hobby[i].checked = true;
+                }
+
+            } else {
+                // > 전체 체크하기 체크박스가  현재 체크되지 않은 상태라면
+                //   모든 취미를 다 체크 해제해주기
+
+                for(var i = 0; i < hobby.length; i++) {
+
+                    hobby[i].checked = false;
+                }
+            }
+        };
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h3>4) 클래스명으로 접근하기</h3>
+
+    <!-- CSS 의 클래스 선택자와 같은 역할 -->
+
+    <div class="test"></div>
+    <p class="test"></p>
+    <ul class="test">
+        <li></li>
+        <li></li>
+    </ul>
+    <pre class="test test1"></pre>
+
+    <button onclick="accessClass();">
+        class 로 접근
+    </button>
+
+    <script>
+        function accessClass() {
+
+            // class 속성으로 요소를 가져올 때
+            // document.getElementsByClassName("클래스명");
+            // > 마찬가지로 선택된 요소 객체들이 "배열" 에 담겨서 반환됨
+
+            var arr = document.getElementsByClassName("test");
+                      // [div, p, ul, pre]
+
+            // console.log(arr);
+
+            // 반복문 활용
+            for(var i = 0; i < arr.length; i++) {
+
+                console.log(arr[i]);
+            }
+            // > 배열로 넘어오기 때문에 마찬가지로 반복문 활용이 가능!!
+
+            // 한번에 한개의 요소만 선택하는 구문
+            // document.getElementById("아이디명");
+
+            // 한번에 여러개의 요소들을 선택하는 구문
+            // document.getElementsByTagName("태그명");
+            // document.getElementsByName("name 속성값");
+            // document.getElementsByClassName("클래스명");
+            // > 선택된 여러개의 요소들이 배열에 담겨서 반환됨!!
+            //   (반복문 활용이 가능하다)
+
+            // * 한번에 여러개의 요소들을 선택하는 구문 사용 시 주의할 점
+            var test1 = document.getElementsByClassName("test1");
+
+            // console.log(test1);
+            // > 클래스명이 test1 인 요소가 마침 pre 한개였음!!
+            //   이 경우 요소가 단 한개 선택되서 요소 객페로 반환되는게 아니라
+            //   아무리 한개의 요소가 선택되더라도 배열의 0 번방에 담겨서 반환
+            //   (getElementsByXXX 다 해당)
+
+            // test1.innerHTML = "안녕하세요"; // X
+            // > 지금 test1 은 pre 요소 객체가 아닌 pre 요소 객체가 담겨있는 배열을 의미함!!
+
+            test1[0].innerHTML = "안녕하세요"; // O
+            // 반드시 0 번방에 접근해서 속성을 넣어줘야함!!
+        }
+    </script>
+
+</body>
+</html>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
