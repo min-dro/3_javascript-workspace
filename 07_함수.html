@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수</title>
+    <style>
+        .area {
+            width : 500px;
+            height : 150px;
+            background-color : lightgray;
+            border : 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>함수 (function)</h1>
+
+    <!--
+        - 하나의 기능 단위
+        - 자바로 따지면 "메소드" 와 같은 역할
+        - 단, 자바스크립트에서는 함수 또한 자료형 및 값으로 취급됨!!
+    -->
+
+    <h3 onclick="test1();">* 선언적 함수</h3>
+
+    <!-- 이름이있는 함수를 선언적 함수라고 부른다. -->
+
+    <pre onclick="test1();">
+        [ 표현법 ]
+
+        function 함수명(매개변수, 매개변수, ... => 생략 가능) {
+
+            해당 함수 호출 시 실행할 구문들;
+
+            return 결과값;
+        }
+
+        - 선언적 함수 : 이름이 있는 함수로써, 이름이 있기 때문에 개발자인 내가 직접 호출이 가능한 함수
+        - 매개변수는 생략 가능
+        - 반환할 결과값이 없는 경우 return 구문 생략 가능
+          (return 구문이 실행하는 시점에서 반환형이 정해지므로 함수 머리부에 반환형을 기술하지 않음)
+    </pre>
+
+    <button onclick="test1();">
+        실행확인
+    </button>
+
+    <div id="area1" class="area"></div>
+
+    <script>
+        function test1() {
+
+            document.getElementById("area1").innerHTML += "test1 함수 실행됨! <br>";
+
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h3 onclick="testFn();">* 익명 함수</h3>
+
+    <!-- 이름이 없는 함수를 익명 함수라고 부른다!! -->
+
+    <pre onclick="testFn();">
+        [ 표현법 ]
+
+        변수 = function(매개변수, 매개변수, ... => 생략 가능) {
+
+            소스코드;
+
+            return 결과값;
+        };
+
+        - 익명 함수 : 특정 변수나 속성에 대입되는 값으로 취급하는 함수를 제시할 때 주로 사용됨
+                      (주로 이벤트 핸들러 작성 시 사용)
+        - 매개변수는 생략 가능
+        - return 구문 또한 생략 가능
+    </pre>
+
+    <button id="btn2">
+        실행확인
+    </button>
+
+    <div id="area2" class="area"></div>
+
+    <script>
+        // 순수 내부방식
+        var btn2 = document.getElementById("btn2");
+
+        // 요소객체명.속성명 = 값;
+        btn2.onclick = function() {
+            // onclick 속성을 "이벤트 속성" 이라고 부른다!!
+            // > 해당 이벤트가 발생했을 때 실행할 구문을 담아두는 용도의 속성
+            // > 이벤트 속성에 대입되는 익명함수 == 이벤트 핸들러 함수
+
+            document.getElementById("area2").innerHTML += "이벤트핸들러를 통해 실행됨! <br>";
+        };
+        // > 반드시 btn2 가 클릭되었을 경우에만 실행됨!!
+        //   이름이 없기 때문에 내가 직접 호출 불가능!! (이벤트 핸들러 함수)
+
+        // 단, 익명 함수는 일반 변수에 함수를 대입했을 때에는 호출 가능해짐!!
+        // > 해당 변수명이 곧 함수명이 되기 때문!!
+        const testFn = function() {
+
+            alert("잘 호출 되나..?");
+        };
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h2>함수 매개변수</h2>
+
+    <!-- button[onclick=]{실행확인}*8 + Enter -->
+    <button onclick="test3('안녕하세요');">실행확인</button>
+    <button onclick="test3(10);">실행확인</button>
+    <button onclick="test3([1, 2, 3]);">실행확인</button>
+    <button onclick="test3(true);">실행확인</button> <br>
+    <button onclick="test3(prompt('이름을 입력하세요'));">실행확인</button>
+    <!-- 매개변수 또한 자료형을 따지지 않고 인자값을 전달할 수 있다!! -->
+    <button onclick="test3('안녕하세요', '반값습니다');">실행확인</button>
+    <button onclick="test3(10, true, [1, 2, 3]);">실행확인</button>
+    <!--
+        함수에 정의해둔 매개변수의 갯수보다 인자값을 더 많이 전달 가능!!
+        (오류 안남, 문제 없음)
+        단, 초과된 인자값 (전달값) 들은 무시된다.
+    -->
+    <button onclick="test3();">실행확인</button>
+    <!--
+        함수에 정의해둔 매개변수의 갯수보다 인자값을 더 적게 전달 가능!!
+        (오류 안남, 문제 없음)
+        단, 인자값이 전달되지 않은 매개변수는 undefined 가 뜸!!
+    -->
+    
+    <div id="area3" class="area"></div>
+
+    <script>
+        /*
+            * 자바스크립트의 매개변수
+
+            - 기존 자바의 매개 "변수" 선언 시 자료형, 매개변수명을 모두 작성
+            - 자바스클비트의 매개 "변수" 선언 시 매개변수명만 작성한다!!
+              (일반 변수 선언 시에도 자료형 언급이 없음!!)
+        */
+       function test3(value) {
+            // 매개변수 선언 시 자료형 지정 X
+            //                 var, let, const 도 제시 X
+            // > 오로지 매개변수명만 적는다!!
+
+            document.getElementById("area3").innerHTML = value;
+       }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h3>* 매개변수 관련 arguments 배열</h3>
+
+    <p>
+        - arguments 배열
+        : 모든 함수마다 내부적으로 하나씩 가지고 있는 배열객체 <br>
+          해당 함수 호출 시 전달되는 값을 내부적으로 받아 줄 용도
+    </p>
+
+    <button onclick="test4(11, 12, 1, 5, 7);">
+        실행확인
+    </button>
+    <!--
+        - test4 호출 시 매개변수 인자값 없이 호출하면 arguments 의 length == 0
+        - test4 호출 시 매개변수 인자값들을 넣ㅇ서 호출하면 arguments 배열의
+          0번 인덱스에서 부터 차곡차곡 그 인자값들이 담겨있는 것을 볼 수 있음!!
+          length == 인자값들의 갯수
+    -->
+
+    <div id="area4" class="area"></div>
+
+    <script>
+        function test4() {
+
+            // console.log(arguments);
+            // console.log(arguments[0]);
+
+            // arguments 배열에 반복문 돌리기!!
+            // > arguments 배열의 모든 값을 더해서 div 에 출력 (누적합)
+            var sum = 0;
+
+            // for(let i = 0; i < arguments.length; i++) {
+            for(let i in arguments) {
+                // > i = 0 1 2 3 4 (인덱스 수가 담김)
+
+                // console.log(arguments[i]);
+            
+                sum += arguments[i]; // sum = sum + arguments[i]
+            }
+
+            // console.log(sum, sum / arguments.length);
+
+            document.getElementById("area4").innerHTML = "총합 : " + sum + "<br>";
+            document.getElementById("area4").innerHTML += "평균 : " + (sum / arguments.length);
+            
+            // > arguments 배열이 있기 깨문에 꼭 정해진 갯수만큼의 인자를 넘기지 않아도
+            //   자유홉게 기능을 짤 수 있게된다!!
+
+            // > 사실 arguemnts 배열을 자바에서도 본 적이 있다!!
+            //   main 메소드 (public static void main(String[] args))
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h3>* 매개변수가 있는 함수에 인자값으로 this 관련 전달하기</h3>
+
+    <!-- button[onclick=]{버튼$}*3 + Enter -->
+    <button onclick="test5(this);">버튼1</button>
+    <!-- this : 방금 클릭당한 버튼을 의미함 -->
+    <button onclick="test5(this.innerHTML);">버튼2</button>
+    <!--
+        this.innerHTML : 방금 클릭당한 버튼 요소의
+                         시작태그와 종료태그 사이의 문구가 넘겨짐
+    -->
+
+    <input type="button" value="버튼2" onclick="test5(this.value)">
+    <!-- 
+        this.value : 방금 클릭당한 버튼 요소의 value 속성값이 넘겨짐
+    --> 
+
+    <button id="btn" onclick="test5(this.id);">버튼3</button>
+    <!--
+        this.id : 방금 클릭당한 버튼 요소의 id 속성값이 넘겨짐
+    -->
+
+    <script>
+        function test5(a) {
+            
+            console.log(a);
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h2>함수의 리턴</h2>
+
+    <h3>* 일반적인 값 리턴</h3>
+
+    <button onclick="test6();">
+        실행확인
+    </button>
+
+    <div id="area6" class="area"></div>
+
+    <script>
+        function test6() {
+
+            document.getElementById("area6").innerHTML
+                            += "랜덤값 : " + ran() + "<br>";
+        }
+
+        // 1 ~ 100 사이의 랜덤값을 구해서 반환해주는 함수
+        function ran() {
+
+            // let random = parseInt(Math.random() * 100 + 1);
+            // return random;
+
+            return parseInt(Math.random() * 100 + 1);
+            // > 리턴값이 없다면 return 구문 생략
+            //   리턴값이 있다면 return 구문 작성
+            // > 이 return 구문이 실행되는 시점에 리턴값의 자료형이 결정되기 때문에
+            //   함수 머리부에 반환형을 적지 않는다!!
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h3>* 익명 함수를 리턴하는 함수</h3>
+
+    이름 : <input type="text" id="userName">
+
+    <button onclick="test7()();">실행확인</button>
+    <!-- 호출 구문 내에서 두번째 () 가 리턴된 익명 함수를 실행시켜준다!! -->
+
+    <script>
+        function test7() {
+
+            let name = document.getElementById("userName").value;
+
+            // console.log(name);
+
+            // 사용자로부터 입력받은 이름값을 alert 로 띄워보기
+            // alert(name + "님 환영합니다!");
+
+            // 코드를 한번 꼬아보기
+            return function() {
+
+                alert(name + "님 환영합니다!");
+            };
+        }
+    </script>
+
+</body>
+</html>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
