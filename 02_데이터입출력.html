@@ -7,8 +7,8 @@
     <style>
         .area {
             border : 1px solid black;
-            width: 300px;
-            height: 100px;
+            width : 300px;
+            height : 100px;
         }
     </style>
 </head>
@@ -20,17 +20,17 @@
 
         * 자바스크립트의 최상위 내장객체들
 
-        1. window : 자바스트립트의 제일 최상위 내장 객체
+        1. window : 자바스크립트의 제일 최상위 내장 객체
                     "브라우저 창" 이 하나 열릴 때마다 내부적으로 하나씩 생성되는 객체
                     즉, 브라우저 창 1개를 나타내는 객체임!!
                     (브라우저 창 안에 존재하는 모든 요소들의 최상위 (부모) 객체)
-                    window 계열 구문들은 모든 곳에 다 적용 가능하다!!
+                    window 계열 구문들은 모든 곳에 다 적용 가능하다!! 
                     그래서 보통은 window. 은 생략해서 작성한다.
                     예) window.alert(); -> alert();
                         window.console.log(); -> console.log();
 
         2. document : window 의 자식객체들 중 하나
-                      "웹 문서 (html 문서 파일) 하나 당 한개씩 갖고 있는 객체"
+                      "웹 문서 (html 문서 파일) 하나 당 한개씩 갖고있는 객체"
                       즉, html 파일 1개를 나타내는 객체임!!
                       (HTML 문서에 대한 정보들을 가지고 있음)
     -->
@@ -41,8 +41,8 @@
 
     <p>
         1) window.alert("알림창에 출력할 문구"); <br>
-        2) window.console.log("콘솔창에 출력할 문구") <br>
-        3) document.write("화면에 출력할 문구");
+        2) window.console.log("콘솔창에 출력할 문구"); <br>
+        3) document.write("화면에 출력할 문구"); <br>
         4) 선택한요소.innerHTML/innerText = "해당요소에 출력할 문구";
     </p>
 
@@ -69,7 +69,7 @@
 
     <br><br>
 
-    <h3>3) document.write("화면에 출력할 문구")</h3>
+    <h3>3) document.write("화면에 출력할 문구");</h3>
 
     <button type="button" onclick="documentWrite();">
         화면에 출력
@@ -79,14 +79,14 @@
         function documentWrite() {
 
             // 테스트1
-            // document.write("잘 출력 되나..?")
+            // document.write("잘 출력 되나..?");
             // > 기본 동작 원리는
-            //   이 html 문서의 body 태그의 인자값을 넣어서 
+            //   이 html 문서의 body 태그에 인자값을 넣어서
             //   화면에 대놓고 출력해주는 원리임!!
 
             // 테스트2
             // > 출력할 문구에 html 태그를 문자열로써 포함시킬 경우에는?
-            // document.write("<h1>잘 출력되나..?</h1>");
+            // document.write("<h1>잘 출력 되나..?</h1>");
             // > 출력할 문자열에 html 태그가 있을 경우
             //   진짜 html 태그로 해석되서 보여짐!!
 
@@ -105,13 +105,13 @@
 
     <br><br>
 
-    <h3>4) 선택한요소.innerHTML/innserText = "해당요소에 출력할 문구";</h3>
+    <h3>4) 선택한요소.innerHTML/innerText = "해당요소에 출력할 문구";</h3>
 
     <!-- 사실상 document 계열의 구문임 (즉, 화면에 출력해줌) -->
 
     <div class="area" id="area1">
         자바스크립트에서 어떤 요소 (element) 안의 값 (content 영역 값)
-        을 가지고 온다거나, 변경하고자 할때 <b>innerHTML, innerText</b>
+        을 가지고 온다거나, 변경하고자 할 때 <b>innerHTML, innerText</b>
         라는 속성에 접근해서 처리할 수 있다.
     </div>
 
@@ -132,7 +132,7 @@
 
             var divEl = document.getElementById("area1");
             // <div class="area" id="area1">~~~~</div>
-            
+
             console.log(divEl);
             console.dir(divEl);
             // > console.dir : 해당 값의 디렉토리 구조를 보고자 할 때
@@ -143,7 +143,7 @@
             //   객체명.속성명 (O)
 
             // 참고)
-            // > 자바에서는 객체의 필드에 직접 접근 불가 (private - 캡술화)
+            // > 자바에서는 객체의 필드에 직접 접근 불가 (private - 캡슐화)
             //   객체명.필드명 (X)
 
             console.log(divEl.id); // area1
@@ -156,14 +156,14 @@
             console.log(divEl.innerText);
             // > 해당 요소의 content 영역 안의 순수 텍스트만 포함 : innerText
             //   (즉, html 태그는 가져오지 않음)
-            
+
             // 위와 같이 속성에 직접 접근해서 값을 가지고 오는 것도 가능하지만
             // 반대로 직접 접근해서 값을 대입구문을 통해 변경하는 것 또한 가능하다!!
-            
+
             // divEl.innerHTML = "안녕하세요";
             // divEl.innerText = "안녕히가세요";
 
-            // divEl.innerHTML = "<b>innerHTML 로 속성값을 변경함</b>"
+            // divEl.innerHTML = "<b>innerHTML 로 속성값을 변경함</b>";
             // innerHTML 로 변경하면 출력할 문구에 html 태그가 있을 경우
             // 진짜 태그로 인식함!!
 
@@ -299,7 +299,7 @@
             /*
                 자바의 for문
                 for(int i = 0; i < num; i++) {
-                
+
                 }
 
                 - 반복이 num 번 진행됨!!
@@ -338,7 +338,7 @@
         function testInput() {
 
             // 사용자가 input 텍스트상자에 키보드로 입력한 값 꺼내오기
-            var input1 = document.getElementById("userId"); // <input id="userId"> 
+            var input1 = document.getElementById("userId"); // <input id="userId">
             var input2 = document.getElementById("userPwd"); // <input id="userPwd">
 
             // console.log(input1);
@@ -362,12 +362,12 @@
             } else {
                 // > 하나라도 틀릴 경우 : 로그인 실패
 
-                alert("로그인 실패!")
+                alert("로그인 실패!");
             }
 
             // 각각의 텍스트 상자에 초기화 효과
             input1.value = "";
-            input2.value = ""
+            input2.value = "";
         }
     </script>
 
@@ -400,8 +400,8 @@
             var content = document.getElementById("content"); // <textarea></textarea>
 
             // console.log(title.value);
-            // console.log(contnet.value);
-            // > ckarhfh textarea 또한 입력한 값이 value 속성에 담겨있음!!
+            // console.log(content.value);
+            // > 참고로 textarea 또한 입력한 값이 value 속성에 담겨있음!!
 
             var list = document.getElementById("list"); // <tbody></tbody>
 
@@ -426,7 +426,7 @@
     <hr>
 
     <!--
-        자바스크입트 연습문제 디펜스
+        자바스크립트 연습문제 디펜스
 
         명심할 사항 : 제어문, 연산자는 자바랑 똑같음!!
     -->
@@ -444,16 +444,16 @@
 
     <script>
         function practice1() {
-            
-            var num = prompt("숫자만 입력하세요");
+
+            var num = prompt("숫자만 입력하세요.");
 
             var divEl = document.getElementById("area4");
-            
-            if((num % 2) == 0){
-                // 짝수일 경우
+
+            if(num % 2 == 0) {
+                // > 짝수일 경우
 
                 divEl.innerHTML = "<h3>짝수입니다.</h3>";
-            
+
             } else {
                 // > 홀수일 경우
 
@@ -478,7 +478,7 @@
     사람 수 : <input type="number" id="person"> <br>
     사탕 갯수 : <input type="number" id="candy"> <br>
 
-    <button onclick="practice2()">남는 사탕 갯수 확인하기</button>
+    <button onclick="practice2();">남는 사탕 갯수 확인하기</button>
 
     <br><br>
 
@@ -491,13 +491,13 @@
             var person = document.getElementById("person").value;
             var candy = document.getElementById("candy").value;
 
-            // console.log(person, candy); 
+            // console.log(person, candy);
 
             var result = document.getElementById("result"); // <label></label>
 
-            result.innerText
+            result.innerText 
                 = "한 사람당 " + Math.floor(candy / person) + "개의 사탕을 나눠가질 수 있고, " 
-                    + (candy % person) + "개의 사탕이 남습니다."
+                    + (candy % person) + "개의 사탕이 남습니다.";
             // > 자바스크립트에서는 숫자타입으로 정수, 실수를 모두 다 커버한다!!
             //   (자바처럼 정수, 실수 타입이 나눠지지 않음)
             // > 그래서 나눗셈의 결과가 실수로 출력됨!!
@@ -534,19 +534,19 @@
 
     구매할 과일명 : <input type="text" id="fruit"> <br>
 
-    <button onclick="practice3()">가격 확인하기</button>
+    <button onclick="practice3();">가격 확인하기</button>
 
     <script>
         function practice3() {
 
             // 구매할 과일명을 변수에 담아두기
             var fruit = document.getElementById("fruit").value;
-            
+
             var result = "";
-            
+
             switch(fruit) {
-            
-            case "사과" :
+
+            case "사과" : 
                 result = "사과의 가격은 1000원 입니다.";
                 break;
             case "바나나" :
@@ -555,13 +555,13 @@
             case "딸기" :
                 result = "딸기의 가격은 3000원 입니다.";
                 break;
-            case "복숭아" :
+            case "복숭아" : 
                 result = "복숭아의 가격은 4000원 입니다.";
                 break;
-            case "키위" :
+            case "키위" : 
                 result = "키위의 가격은 5000원 입니다.";
                 break;
-            default:
+            default : 
                 result = "우리 가게에서 판매하는 과일이 아닙니다.";
             }
 
@@ -588,15 +588,15 @@
 
     <script>
         function practice4() {
-            
+
             var answer = confirm("프로그램을 종료하시겠습니까?");
 
             var h1El = document.getElementById("result2");
 
-            if(answer){
+            if(answer) {
 
-                h1El.innerHTML = "프로그램을 종료합니다.";
-                
+                h1El.innerText = "프로그램을 종료합니다.";
+
                 window.close();
             }
         }
@@ -625,15 +625,7 @@
 
     <script>
         function practice5() {
-            var num1 = document.getElementById("num1").value;
-            
-            var ul2 = document.getElementById("ul2");
-            
-            var strEl = "";
-            for(var i = 1; i <= num1; i++){
-                strEl += "<li>" + i + "</li>";
-            }
-            ul2.innerHTML += strEl;
+
         }
     </script>
 
@@ -658,14 +650,8 @@
 
     <script>
         function practice6() {
-            var num2 = document.getElementById("num2").value;
 
-            var sum = document.getElementById("sum");
-            var h1El = 0;
-            for(var i = 1; i <= num2; i++) {
-                h1El += i;
-            }
-            sum.innerHTML = h1El;
+           
         }
     </script>
 
@@ -690,18 +676,8 @@
 
     <script>
         function practice7() {
-            var num3 = document.getElementById("num3").value;
 
-            var ul3 = document.getElementById("ul3");
-            var ulEl = "";
-            if(2 <= num3 && num3 <= 9){
-                for(var i = 1; i <= 9; i++){
-                    ulEl += "<li>" + num3 + " * " + i + " = " + (num3*i) + "</li>";
-                }
-            } else {
-                alert("잘못 입력했습니다.");
-            }
-            ul3.innerHTML = ulEl;
+
         }
     </script>
 
@@ -740,29 +716,29 @@
 
             // 우선 등급을 판별하기 전에 제대로된 점수인지 먼저 확인
             if((0 <= score) && (score <= 100)) {
-                // 제대로된 점수 구간일 경우
-                
+                // > 제대로된 점수 구간일 경우
+
                 if(90 <= score) {
 
-                    grade.innerHTML = "A 등급";
-                
+                    grade.innerText = "A 등급";
+
                 } else if((80 <= score) /* && (score < 90) */) {
-                
-                    grade.innerHTML = "B 등급";
-                
+
+                    grade.innerText = "B 등급";
+
                 } else if((70 <= score) /* && (score < 80) */) {
-                
-                    grade.innerHTML = "C 등급";
-                
+
+                    grade.innerText = "C 등급";
+
                 } else {
-                
-                    grade.innerHTML = "D 등급";
+
+                    grade.innerText = "D 등급";
                 }
 
             } else {
                 // > 제대로된 점수 구간이 아닐 경우
 
-                grade.innerHTML = "잘못된 점수 입니다."
+                grade.innerText = "잘못된 점수 입니다.";
             }
         }
     </script>
@@ -792,19 +768,7 @@
 
     <script>
         function practice9() {
-            var age = document.getElementById("age").value;
 
-            var result = "";
-            if(0 < age && age <= 13) {
-                result = "어린이";
-            } else if(13 < age && age <= 19) {
-                result = "청소년";
-            } else if(19 < age) {
-                result = "성인";
-            } else {
-                result = "잘못 입력했습니다."
-            }
-            alert(result);
         }
     </script>
 
@@ -846,18 +810,18 @@
             var str = "";
 
             // 2단부터 9단까지
-            for(var i = 2; i <= 9; i++){
+            for(var i = 2; i <= 9; i++) {
 
                 str += "<fieldset>";
                 str += "<legend>" + i + "단</legend>";
-                
+
                 // 1 ~ 9 까지 각각 곱하기
                 for(var j = 1; j <= 9; j++) {
 
-                    str += i + " * " + j + " = " + (i*j) + "<br>";
+                    str += i + " * " + j + " = " + (i * j) + "<br>";
                 }
 
-                str += "</fieldset>";
+                str += "</fieldset>";    
             }
 
             // 최종 결과를 출력 (innerHTML)

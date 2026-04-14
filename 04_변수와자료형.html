@@ -18,9 +18,9 @@
 
     <br>
 
-    <!--
-        자바스크립트에서는 변수 선언 시 자료형을 언급하지 않음!!
-        그변수에 값이 들어오는 순간 그 값에 따라서 자료형이 지정됨!! (타입추론)
+    <!-- 
+        자바스크립트에서는 변수 선언 시 자료형을 언급하지 않음!! 
+        그 변수에 값이 들어오는 순간 그 값에 따라서 자료형이 지정됨!! (타입추론)    
     -->
 
     <h3>* 변수 선언 시 var 뿐만 아니라 let, const 도 사용 가능</h3>
@@ -95,7 +95,7 @@
 
     <h4>2) 스코프 (Scope : 이 변수를 사용 가능한 영역, "범위")</h4>
 
-    <button onclick="diffScope()">
+    <button onclick="diffScope();">
         클릭
     </button>
 
@@ -111,17 +111,17 @@
 
             console.log(age); // 제대로 출력됨
 
-            console.log("-----------");
+            console.log("----------");
 
             for(var i = 0; i < 10; i++) {
                 // > 반복은 i 가 0 ~ 9 일 때 까지만 진행 / 증감식에 의해 i 가 마지막으로 10 이 되는 순간 빠져나옴
 
-                console.log(i);    
+                console.log(i);
             }
 
             // 이 시점에서 마지막 i 값 확인
             console.log("마지막 i 값 : " + i); // 확인 가능함 (10)
-
+            
             console.log("----------");
 
             // let, const : block scope 의 특징을 가짐
@@ -142,12 +142,12 @@
                 console.log(j);
             }
 
-            // 이 시점에서 마지막 j 값 ghkrdls
+            // 이 시점에서 마지막 j 값 확인
             console.log("마지막 j : " + j); // 제대로 출력이 안됨
 
             // 참고)
             // for 문의 초기식에는 const 를 사용할 수 없다!!
-            // > 증감식 때문에 매번 초기식의 값이 바껴야 하는데 const 는 상수니가!!
+            // > 증감식 때문에 매번 초기식의 값이 바껴야 하는데 const 는 상수니까!!
         }
     </script>
 
@@ -178,21 +178,21 @@
 
         // 자바스크립트의 전역변수는
         // 항상 자동으로 window 객체의 하위 속성 (필드) 으로 등록됨!!
-        str2 = "전역변수"; // window.str
+        str = "전역변수"; // window.str
         var str2 = "var 전역변수"; // window.str2
 
         // window.onload : 해당 이 html 문서가 브라우저에 다 로딩되고 나서
         //                 곧바로 단 한번 실행할 함수를 정의하는 구문
         window.onload = function() {
 
-            // alert("잘 로딩됐나..?");
+            // alert("잘 로딩됬나..?");
 
             var str = "지역변수"; // 전역변수명과 중복
             var str3 = "새로운 지역변수";
 
             str4 = "난 뭘까요..?";
 
-            console.log("--- str --");
+            console.log("--- str ---");
             console.log(str); // "지역변수"
             // > 지역변수명과 전역변수명이 동일한 경우
             //   함수 내에서 변수명 호출 시 지역변수가 우선권을 가져서 호출됨!!
@@ -202,14 +202,14 @@
             // 같았고, 이 때 마찬가지로 매개변수가 더 우선순위가 높았었음!!
             // > 필드 (전역변수) 임을 티내기 위해 this.필드명 으로 표현했었음!!
 
-            // 그러면 전역변수로써 str에 접근하고 싶을 경우에는?
+            // 그러면 전역변수로써의 str 에 접근하고 싶을 경우에는?
             // > window.전역변수명 (풀네임)
             console.log(window.str);
 
             // 또는
             // > this.전역변수명 (자바와 동일)
             console.log(this.str);
-            // > 이 function 기준으로 this. == window 를 지칭함!!
+            // > 이 function 기준으로 this == window 를 지칭함!!
 
             console.log("--- str2 ---");
             console.log(str2); // "var 전역변수"
@@ -225,27 +225,27 @@
             console.log("--- str4 ---");
             console.log(str4); // "난 뭘까요..?"
             console.log(window.str4); // "난 뭘까요..?"
-            console.log(this.str4); // "난 뭘까요"
+            console.log(this.str4); // "난 뭘까요..?"
             // > str4 는 아무리 함수 영역 안에 선언되었더라도 var 없이 선언되었기 때문에
             //   "전역변수" 로 취급된다!!
-            
-            //  함수 안에 변수 선언 시 var 를 생략하면 전역변수로 취급된다!!
+
+            // 함수 안에 변수 선언 시 var 를 생략하면 전역변수로 취급된다!!
         };
 
         // 참고)
-        // 자바스크입트의 선언적 함수들도 마찬가지로 window 객체의 하위 속성으로 잡힌다!!
-        // function test() { // 이 함수의 출 네임 : window.test()
+        // 자바스크립트의 선언적 함수들도 마찬가지로 window 객체의 하위 속성으로 잡힌다!!
+        // function test() { // 이 함수의 풀 네임 : window.test()
         var test = function() {
             // > 익명함수를 이름이 있는 변수에 담아서 쓸 수 있다!!
             //   이 경우는 변수명이 곧 함수명이 된다!! (test 함수로써 호출해서 사용 가능)
 
             console.log("전역변수들 모두 출력!!");
 
-            console.log(/* window. */str);
+            console.log(/* window. */ str);
             console.log(str2);
             console.log(str4);
             // > 전역변수들은 이 html 문서 내의 아무 script 영역에서 다 가져다 쓸 수 있음!!
-        }
+        };
     </script>
 
     <button onclick="window.test();">
@@ -266,8 +266,8 @@
     </p>
 
     <!--
-        참고)
-        사실 자바에서도 var 를 쓸 수 있음!!
+        참고) 
+        사실 자바에서도 var 를 쓸 수 있음!! (잘 안쓰임)
     -->
 
     <br><br>
@@ -278,7 +278,7 @@
         <li>
             원시 타입 (primitive type)
             <ol>
-                <li>String (문자열)</li>
+                <li>string (문자열)</li>
                 <li>number (숫자)</li>
                 <li>boolean (논리값)</li>
                 <li>undefined (초기화가 안된 변수)</li>
@@ -295,7 +295,7 @@
 
     <br>
 
-    <button onclick="typeTest()">
+    <button onclick="typeTest();">
         자료형 테스트
     </button>
 
@@ -309,9 +309,9 @@
             // 1. 원시 타입 - 문자열, 숫자, 논리값, undefined
 
             // string (문자열)
-            // var name = "홍길동"
+            // var name = "홍길동";
             var name = '홍길동';
-            // > 문자열을 나타낼 때 쌍따옴표둔 홑따옴표든 상관 없음!!
+            // > 문자열을 나타낼 때 쌍따옴표든 홑따옴표든 상관 없음!!
 
             // number (숫자)
             // let age = 20;
@@ -334,20 +334,20 @@
                 age : 30,
                 id : "user01"
             };
-            // > 자바스크입트에서의 객체는 {} (중괄호) 로 표현한다!!
+            // > 자바스크립트에서의 객체는 {} (중괄호) 로 표현한다!!
             //   이 중괄호 영역 안에 속성명(키값) : 속성값(밸류값) 형태로 나열
 
-            const hobby = ["영화", "응악", "낮잠"];
+            const hobby = ["영화", "음악", "낮잠"];
             // > 자바스크립트에서의 배열은 [] (대괄호) 로 표현한다!!
             //   이 대괄호 영역 안에 값들을 나열
-            // > 자바스크립트에서는 배열 또한 객체 타입으로 취급됨!! 
+            // > 자바스크립트에서는 배열 또한 객체 타입으로 취급됨!!
 
             // function (함수)
             var testFn = function() {
 
                 alert("ㅋㅋㅋㅋ");
             };
-            // > 자바스크입트에서의 함수는 변수에 대입할 수 있다.
+            // > 자바스크립트에서의 함수는 변수에 대입할 수 있다.
             //   이 때, 함수는 이름이 없어야 한다!! (익명함수여야만 한다)
             //   이 순간, 그 변수명이 곧 함수명이 됨!!
 
@@ -365,14 +365,14 @@
             // - 변수들을 div 요소 안쪽에 출력해보기 (innerHTML)
             var divEl = document.getElementById("area"); // <div></div>
             // > HTML 요소를 자바스크립트 코드 상으로 끌고 와서 변수에 담으면
-            //   요소 "객체" 타입으로 취급된다 (결국 object 타입임)
+            //   요소 "객체" 타입으로 취급된다!! (결국 object 타입임)
 
             // 변수에 들은 값 및 해당 변수의 자료형까지 같이 출력!!
             // > 자바스크립트에서 변수의 자료형 확인 시 사용되는 함수 : typeof(변수명)
 
             divEl.innerHTML = name + "의 자료형 : " + typeof(name) + "<br>";
             divEl.innerHTML += age + "의 자료형 : " + typeof(age) + "<br>";
-            divEl.innerHTML += flag + "의 자료형 : " + typeof(flag) +"<br>";
+            divEl.innerHTML += flag + "의 자료형 : " + typeof(flag) + "<br>";
             divEl.innerHTML += noVal + "의 자료형 : " + typeof(noVal) + "<br>";
 
             divEl.innerHTML += user + "의 자료형 : " + typeof(user) + "<br>";
@@ -385,17 +385,17 @@
             divEl.innerHTML += testFn + "의 자료형 : " + typeof(testFn) + "<br>";
             // > 함수를 innerHTML 로 출력할 경우 내용 코드 자체가 텍스트로 출력됨!!
             // > 이 때, 함수명 만 써야 변수로써 값을 꺼내올 수 있다!!
-            //   만약 함수명() 를 쓰면 변수로써 값을 꺼내오는게 아니라 해당 함수를 호출
-
+            //   만약 함수명() 를 쓰면 변수로써 값을 꺼내오는게 아니라 해당 함수를 호출하는 것!!
+            
             // 만약 [object Object] 대신 객체 내부의 속성값을 출력하고 싶은 경우?
             // > 객체명.속성명 으로 직접 접근해서 값을 꺼내오면 됨!!
-            div.innerHTML += "<hr>";
+            divEl.innerHTML += "<hr>";
 
             divEl.innerHTML += user.name + "의 나이는 "
                              + user.age + "살이며 아이디는 "
                              + user.id + "입니다. <br>";
-            // > 지비에서 캡슐화 하기 전에 직접 접근해서 출력했던것을 생각하면 됨!!
-            
+            // > 자바에서 캡슐화 하기 전에 직접 접근해서 출력했던것을 생각하면 됨!!
+
         }
     </script>
 

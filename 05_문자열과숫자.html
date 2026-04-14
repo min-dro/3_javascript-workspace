@@ -20,17 +20,17 @@
     </style>
 </head>
 <body>
-    
+
     <h1>문자열과 숫자</h1>
 
     <h3>* 문자열 관련 내장 메소드</h3>
-
-    <!--
+    
+    <!-- 
         * 내장 메소드 
         
         - 언어 자체에 내장되어있는 메소드
         - 즉, 선배 개발자들이 미리 쓰라고 만들어 준 유용한 메소드들
-        - 자바로 따지면 기본 API
+        - 자바로 따지면 기본 API 
     -->
 
     <button onclick="showStringMethod();">
@@ -49,10 +49,10 @@
             let area1 = document.getElementById("area1");
 
             area1.innerHTML = "str1 : " + str1 + "<br>";
-            
+
             area1.innerHTML += "toUpperCase() : " + str1.toUpperCase() + "<br>";
             area1.innerHTML += "toLowerCase() : " + str1.toLowerCase() + "<br>";
-            
+
             area1.innerHTML += "문자열의 길이 : " + str1.length + "<br>";
             // > 참고로 자바에서는 문자열.length() 메소드였음!!
             //   자바스크립트에서는 문자열.length 일반 속성임!!
@@ -70,7 +70,7 @@
             // > 오라클에서 배웠던 INSTR 함수와 같은 역할
             // > 해당 문자가 존재하지 않으면 -1 을 반환!!
             // > 사실, 자바에도 indexOf, lastIndexOf 메소드가 존재함!!
-            //   (사용법과 동작은 자바스크입트와 동일)
+            //   (사용법과 동작은 자바스크립트와 동일)
 
             area1.innerHTML += "substring(시작인덱스) : " + str1.substring(6) + "<br>";
             area1.innerHTML += "substring(시작인덱스, 끝인덱스) : " + str1.substring(0, 2) + "<br>";
@@ -159,7 +159,7 @@
             area3.innerHTML += "test5 : " + test5 + "<br>";
             // > 덧셈의 경우 숫자 --> 문자열 로 자동형변환이 이루어짐
             //   (그래서 알게모르게 문자열로 연이어져서 결과가 나옴)
-            
+
             // 그 외의 산술연산 또한 가능함
             // > 자바에서는 불가능 했었음!! 자바스크립트에서는 가능!!
             let test6 = "7" * 7; // 49
@@ -177,7 +177,7 @@
             let test10 = "2a가3" - 7;
             area3.innerHTML += "test10 : " + test10 + "<br>"; // NaN
             // > NaN : Not a Number 의 약자
-            //         숫자가 아님으로 나타냄!!
+            //         숫자가 아님을 나타냄!!
 
             // isNaN(판단할값);
             // > 판단할 값이 NaN 일 경우 (즉, 숫자가 아닐 경우) true,
@@ -185,7 +185,7 @@
             area3.innerHTML += "isNaN(test10) : " + isNaN(test10) + "<br>";
             area3.innerHTML += "isNaN(test5) : " + isNaN(test5) + "<br>";
             // > 아무리 문자열 타입이더라도 숫자로 변경 가능하면 false 로 나옴!!
-            
+
             // 문자열 --> 숫자 로 형변환 시 항상 문자열 내부에는 숫자만 존재해야함!!
             // 숫자 형식이 아닐 경우는 NaN 발생!!
 
@@ -245,14 +245,14 @@
     <hr>
 
     <h3>* 덧셈계산기 만들기</h3>
-    
+
     정수1 : <input type="number" id="num1"> <br>
     정수2 : <input type="number" id="num2"> <br>
 
     <!--
         - 아무리 input type="number" 로 입력받더라도
           입력받은 값은 "문자열" 로 취급됨!!
-        - 숫자타입으로 정확히 형변환 후 산술 연산을 진행해야 한다.
+        - 숫자타입으로 정확히 형변환 후 산술연산을 진행해야 한다.
     -->
 
     <button onclick="plus();">덧셈</button>
@@ -263,11 +263,11 @@
 
     <script>
         function plus() {
-    
+
             // 입력받은 정수들을 변수에 담기
             let num1 = document.getElementById("num1").value; // "10"
             let num2 = document.getElementById("num2").value; // "20"
-            
+
             // let sum = num1 + num2; // "10" + "20" = "1020"
 
             let sum = Number(num1) + Number(num2); // 10 + 20 = 30
