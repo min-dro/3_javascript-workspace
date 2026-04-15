@@ -81,7 +81,7 @@
 
             const area1 = document.getElementById("area1");
 
-            area1.innerHTML = "arr : " + arr + "<br>";
+            area1.innerHTML = "arr : " + arr /* .toString() */  + "<br>";
             area1.innerHTML += "product : " + product + "<br>";
             // > 객체의 경우에는 내용물이 출력되는게 아니라
             //   [object Object] 로 출력된다!!
@@ -111,7 +111,7 @@
             area1.innerHTML += "product.kind : " + product.kind + "<br>";
             area1.innerHTML += "product.ingredient : "
                                  + product.ingredient /* .toString() */ + "<br>";
-            area1.innerHTML += "product.ingredient[0] : " + product.ingredient[0] + "<br>";
+            area1.innerHTML += "product.ingredient[0] : " + product.ingredient[0];
             // > 자바에서 객체명. 필드명 으로 접근해봤듯이 객체명.속성명으로 적어서 데이터를 꺼내올 수 있음!!
         }
     </script>
@@ -127,7 +127,7 @@
         제시해야 하는 케이스가 종종 있음!!
     </h4>
 
-    <button onclick="">
+    <button onclick="test2();">
         실행확인
     </button>
 
@@ -246,13 +246,12 @@
                 //   진짜 game 이라는 객체로부터 ket 라는 이름의 속성을 찾기 때문!!
 
                 // > 객체명["속성명"]
-                area3.innerHTML += game[key] + "<br>"
+                area3.innerHTML += game[key] + "<br>";
                 // > 제대호 접근됨!!
             }
 
             // for in 문에서 in 뒤에 객체명을 제시했을 경우
             // 앞쪽의 변수에는 각 속성명이 담기게 됨!!
-
 
         }
     </script>
@@ -386,6 +385,7 @@
             // "속성명" in 객체명
 
             area5.innerHTML += "<hr>";
+
             area5.innerHTML += "student 에 name 이라는 속성이 있나? : "
                                     + ("name" in student) + "<br>"; // true
 
@@ -448,8 +448,8 @@
 
             // 객체명.속성명 = 값;
             // 을 통해 메소드 속성 또한 언제든지 추가 가능!!
-
             student.toString = function() {
+                
                 let str = "name : " + this.name + "<br>"
                         + "hobby : " + this.hobby + "<br>"
                         + "dream : " + this.dream + "<br>"

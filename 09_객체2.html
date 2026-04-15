@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>객체2</title>
+    <title>객체 2</title>
     <style>
         .area {
-            height : 250px;
+            background-color:lightblue;
             border: 1px solid black;
-            background-color:lightskyblue;
+            height : 300px;
         }
     </style>
 </head>
@@ -23,7 +23,7 @@
         + 객체의 추가적인 스킬, 선배들이 만들어준 자바스크립트 내장객체들
     -->
 
-    <h1>객체2</h1>
+    <h1>객체 2</h1>
     
     <h3>* 객체 배열을 사용한 다량의 데이터 관리</h3>
 
@@ -64,7 +64,7 @@
             console.log(students[0].name, students[0]["java"]);
             */
 
-            // 반복문 활용
+            // 반복문 활용 - 일반 for 문
             for(let i = 0; i < students.length; i++){
 
                 // console.log(students[i]);
@@ -96,8 +96,7 @@
                                 + ", 총점 : " + students[i].getSum()
                                 + ", 평균 : " + students[i].getAvg() + "<br>";
 
-            }
-            
+            } 
         }
     </script>
 
@@ -122,9 +121,8 @@
         2. 클래스
     -->
 
-
     <p>
-        - 객체를 생성할 때 필요한 동일한 속성을 정의해둔 함수 <br>
+        - 객체를 생성할 때,  필요한 동일한 속성을 정의해둔 함수 <br>
         - new 키워드를 이용해서 호출하면 객체를 생성할 수 있다. <br>
         - 자바로 따지면 클래스 + 생성자의 코드가 결합된 형태 <br> 
         - 생성자 함수의 이름은 항상 대문자로 시작한다.
@@ -171,7 +169,7 @@
         // 학생 객체를 표현할 수 있는 생성자 함수
         // > 기본적으로 생성자 함수는 자바의 "매개변수 생성자" 역할을 해줌 (느낌이 남)
         function Student(name, java, oracle, html, css, javascript) {
-            // 속성값이 될 놈들을 미리 매개변수로 받아내는 꼴
+            // > 속성값이 될 놈들을 미리 매개변수로 받아내는 꼴
 
             // 1. this 라는 객체를 생성하는 구문이 실행됐다고 치자 (해당 코드가 생략된 꼴)
             // let this = {};
@@ -205,7 +203,7 @@
             // > 2단계에서 총 6가지 속성이 추가된 형태에서 메소드 속성이 3개 더 추가된 꼴!!
 
             // 4. 완성된 객체를 return
-            // 이 시점 기준으로 this 에는 일반 속성 6개, 메소드 속성 3개, 총 9개의 속성에
+            // 이 시점 기준으로 this 에는 일반 속성 6개, 메소드 속성 3개, 총 9개의 속성이 들어가있음!!
             // > 완성된 이 this 를 return 하기!!
 
             // return this;
@@ -239,7 +237,7 @@
 
             // 내가 원하는 특정 날짜로 지정해서 생성하고 싶은 경우?
             // 2021년 2월 15일 로 셋팅
-            let date2 = new Date(2021, 2, 15);
+            let date2 = new Date(2021, 2 - 1, 15);
             // > 생성자 함수 호출 시 매개변수로 정수 3개를 제시하면
             //   각각 년, 월, 일을 셋팅할 수 있다!!
             // > 단, 월의 경우 내부적으로 + 1 이 되기 때문에
@@ -309,7 +307,6 @@
             alert("종강까지 " + Math.ceil(dday) + "일 남았습니다^^!");
         }
     </script>
-
 
 </body>
 </html>

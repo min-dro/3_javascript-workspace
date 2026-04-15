@@ -625,7 +625,15 @@
 
     <script>
         function practice5() {
-
+            var num1 = document.getElementById("num1").value;
+            
+            var ul2 = document.getElementById("ul2");
+            
+            var strEl = "";
+            for(var i = 1; i <= num1; i++){
+                strEl += "<li>" + i + "</li>";
+            }
+            ul2.innerHTML += strEl;
         }
     </script>
 
@@ -650,8 +658,14 @@
 
     <script>
         function practice6() {
+            var num2 = document.getElementById("num2").value;
 
-           
+            var sum = document.getElementById("sum");
+            var h1El = 0;
+            for(var i = 1; i <= num2; i++) {
+                h1El += i;
+            }
+            sum.innerHTML = h1El;
         }
     </script>
 
@@ -676,8 +690,18 @@
 
     <script>
         function practice7() {
+            var num3 = document.getElementById("num3").value;
 
-
+            var ul3 = document.getElementById("ul3");
+            var ulEl = "";
+            if(2 <= num3 && num3 <= 9){
+                for(var i = 1; i <= 9; i++){
+                    ulEl += "<li>" + num3 + " * " + i + " = " + (num3*i) + "</li>";
+                }
+            } else {
+                alert("잘못 입력했습니다.");
+            }
+            ul3.innerHTML = ulEl;
         }
     </script>
 
@@ -768,7 +792,19 @@
 
     <script>
         function practice9() {
+            var age = document.getElementById("age").value;
 
+            var result = "";
+            if(0 < age && age <= 13) {
+                result = "어린이";
+            } else if(13 < age && age <= 19) {
+                result = "청소년";
+            } else if(19 < age) {
+                result = "성인";
+            } else {
+                result = "잘못 입력했습니다."
+            }
+            alert(result);
         }
     </script>
 

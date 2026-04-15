@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트</title>
+    <style>
+        .area {
+            background-color : beige;
+            border : 1px solid black;
+            height : 100px;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>이벤트</h1>
+
+    <h2>1. 이벤트란?</h2>
+
+    <p>
+        - 웹 사이트를 이용하는 사용자에 의해 발생되는 어떤 사건
+          (클릭, 스크롤 올렸다 내렸다 하기, 키보드키를 치기, 마우스 올리기 등등..)
+
+        <br><br>
+
+        - 이 이벤트가 발생했을 때, 처리 방법에 대해서 구현하는 것을 "이벤트 처리" 라고 부른다.
+
+        <br><br>
+
+        * 이벤트 처리 시 고려할 사항 <br>
+        1. event target : 해당 이벤트를 당하는 놈 (요소 객체) <br>
+        2. event type : 해당 이벤트의 종류 <br>
+        3. event handler : 해당 이벤트가 발생했을 때 실행할 코드 (함수)
+    </p>
+
+    <br><br>
+
+    <hr>
+
+    <h2>2. 이벤트 모델 종류 (이벤트를 처리하는 코드 작성 방법)</h2>
+
+    <ol>
+        <li>고전 이벤트 모델 (기본 이벤트 모델)</li>
+        <li>인라인 이벤트 모델</li>
+        <li>표준 이벤트 모델</li>
+    </ol>
+
+    <br><br>
+
+    <hr>
+
+    <h3>* 고전 이벤트 모델 (기본 이벤트 모델)</h3>
+
+    <p>
+        - 요소 객체를 코드상으로 끌고 와서 해당 요소 객체의 이벤트 속성에 직접 접근한 후,
+          이벤트 핸들러 함수를 대입 (연결) 해주는 방식 <br>
+        - 해당 이벤트 속성에 null 을 대입하는 순간 반대로 이벤트를 제거할 수 도 있다.
+    </p>
+
+    <!-- 
+        요소를 코드상으로 끌고 가서 처리해주는 방식임
+        html 요소만 따로 떼어서 봤을 때
+        요소 내부에 코드상으로 이벤트에 대한 언급이 하나도 없는 방식임!!
+    -->
+
+    <!-- button#btn${실행확인}*2 + Enter -->
+    <button id="btn1">실행확인</button>
+    <button id="btn2">실행확인</button>
+
+    <div id="area1" class="area"></div>
+
+    <script>
+        // 고전 이벤트 모델 (기본 이벤트 모델) 방식으로 위의 버튼들에게 클릭이벤트 걸기
+
+        let btn1 = document.getElementById("btn1");
+
+        btn1.onclick = function() {
+
+            document.getElementById("area1").innerHTML 
+                            += "btn1 이 클릭되었습니다. <br>";
+        };
+        // > 우리가 그동안 써봤던 순수 내부 방식의 코드가
+        //   사실은 고전 이벤트 모델 방식이였음!!
+
+        // event target : btn1
+        // event type : click (이벤트명) / onclick (이벤트초성명)
+        // event handler : 대입되는 익명함수
+
+        document.getElementById("btn2").onclick = function() {
+
+            // document.getElementById("area1").innerHTML += "btn2 가 클릭되었습니다. <br>";
+
+            // btn1의 이벤트 제거
+            btn1.onclick = null;
+            // > 이벤트가 제거된 후 btn1 을 클릭하면 아무것도 실행되지 않음!!
+        };
+
+        // event target : btn2
+        // event typr : click (이벤트명) / onclick (이벤트속성명)
+        // event handler : 대입되는 익명함수
+
+        // > 클릭 외에도 다양한 이벤트 종류들이 많음!!
+        //   한 요소에 여러개의 이벤트를 걸 수 도 있다!!
+
+        // mouseenter 이벤트 (이벤트속성은 onmouseenter)
+        // > btn1 에 마우스가 올라갔을 때 실행할 함수를 정의
+        btn1.onmouseenter = function() {
+
+            document.getElementById("area1").innerHTML
+                                    += "btn1 에 mouseenter 발생! <br>";
+        };
+
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h3>* 인라인 이벤트 모델</h3>
+
+    <p>
+        - 요소의 시작태그쪽에 직접적으로 이벤트 속성을 제시해서
+          속성값으로 실행할 내용을 코드로 정의하는 방식 <br>
+        - 주로 script 태그 내에 정의되어있는 선언적 함수를 호출하는 방식을 더 선호
+          (코드의 가독성 때문에)
+    </p>
+
+    <!--
+        html 요소 내부에
+        대놓고 이벤트에 대한 언급이 코드로 작성되어있는 방식임!!
+    -->
+
+    <button onclick="test1();" onmouseenter="console.log('잘 되나..?');">실행확인</button>
+    <!--
+        event target : 첫번째 버튼
+        event type : click (이벤트명) / onclick (이벤트속성명)
+        event handler : test1 선언식 함수
+
+        event target : 첫번째 버튼
+        event type : mouseenter (이벤트명) / onmouseenter (이벤트속성명)
+        event handler : onmouseenter 속성의 속성값
+    -->
+
+    <button onclick="document.getElementById('area2').innerHTML += '두번째 버튼 클릭! <br>'">실행확인</button>
+    <!--
+        event target : 두번째 버튼
+        event type : click (이벤트명) / onclick (이벤트속성명)
+        event handler : onclick 속성의 속성값
+    -->
+
+    <div id="area2" class="area"></div>
+
+    <script>
+        function test1() {
+
+            document.getElementById("area2").innerHTML
+                                    += "첫번째 버튼 클릭! <br>";
+        }
+        // > 사실 우리가 그동안 썻던 인라인 방식 또는 인라인 + 내부방식 이
+        //   인라인 이벤트 모델 방식이었던 것!!
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h3>* 표준 이벤트 모델 (addEventListener 방식)</h3>
+
+    <p>
+        - 이벤트를 걸고자 하는 요소 객체를 코드상으로 끌고 와서,
+          해당 요소명으로 부디 addEventListener 라는 메소드를 호출해서
+          이벤트를 부여해주는 방식 <br>
+        - 표준을 지키지 않는 브라우자 (IE) 에서는 이벤트가 이벤트가 제대로 적용되지 않을 가능성이 큰 방식!!
+    </p>
+
+    <pre>
+        [ 표현법 ]
+
+        요소객체명.addEventListener("이벤트명", function() {});
+
+        - event target : 요소객체명
+        - event type : 이벤트명 (click, mouseenter, ... 등 on 이 안붙은것)
+        - event handler : function() {}
+    </pre>
+
+    <!--
+        요소를 코드상으로 끌고 가서 처리해주는 방식
+        html 요소만 따로 떼어서 봤을 때
+        요소 내부에 코드상으로 이벤트에 대한 언급이 하나도 없는 방식임!!
+    -->
+
+    <button id="btn3">
+        실행확인
+    </button>
+
+    <script>
+        // 요소를 코드상으로 끌고 와서
+        const btn3 = document.getElementById("btn3");
+
+        // addEventListener 함수를 호출해서 이벤트를 부여
+        btn3.addEventListener("click", function() {
+
+            alert("표준 이벤트 모델 방식 테스트!");
+        })
+
+        // event target : btn3
+        // event type : click (이벤트명)
+        // event handler : function() {}
+
+        // btn3 에 마우스 포인터가 올라가는 순간 발생하는 이벤트 부여
+        // > mouseenter
+        btn3.addEventListener("mouseenter", function() {
+
+            btn3.style.backgroundColor = "red";
+        });
+
+        // btn3 으로 부터 마우스 포인터가 내려가는 순간 발생하는 이벤트 부여
+        // > mouseout
+        btn3.addEventListener("mouseout", function(){
+
+            btn3.style.backgroundColor = "";
+            // > 스타일 속성 값으로 빈 문자열 ("") 을 제시하면
+            //   스타일이 원래대로 돌아옴!!
+        });
+        
+        /*
+            참고)
+            hover 개념
+
+            - 해당 요소에 마우스가 올라갔다가 내려갈 때 마다
+              적용되는 "이벤트 같은" 개념 (mouseenter + mouseout)
+
+            - 자바스크립트에는 에초에 hover 라는 이벤트가 없기 때문에
+              만약에 hover 효과를 주고 싶다면 한 요소에 어쩔 수 없이
+              mouseenter, mouseout 이벤트를 세트로 각각 같이 부여해 줘야 한다!!
+        */
+
+        /*
+        btn3.addEventListener("hover", function() {
+        
+            btn3.style.color = "white";
+        });
+        */
+        // > 자바스크입트 언어에서는 hover 라는 이벤트가 에초에 존재하지 않음!!
+        // 그래서 위의 코드가 안먹히는것!! 
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h2>3. 현재 이벤트가 발생한 해당 요소객체에 접근하는 방법</h2>
+
+    <!--
+        현재 이벤트가 발생한 해당 요소객체 == event target
+        즉, event target 을 얻어오는 방법
+
+        각 이벤트 부여 방식에 따라 target 을 얻어내는 방식이 서로 다름!!
+
+        - html 요소 내부에 직접적으로 이벤트에 대해 기술 X, 이벤트 핸들러 함수가 익명함수 : 고전, 표준
+        - html 요소 내부에 직접적으로 이벤트에 대해 기술 O, 이벤트 핸들러 함수가 선언적함수 : 인라인
+    -->
+
+    <button id="btn4">고전 이벤트 모델 방식</button>
+    <button id="btn5">표준 이벤트 모델 방식</button>
+    <button onclick="test2();">인라인 이벤트 모델 방식</button>
+
+    <button onclick="test3(this);">인라인 이벤트 모델 방식2</button>
+
+    <script>
+        // 고전 이벤트 모델 방식
+        document.getElementById("btn4").onclick = function(e) {
+            // > 이벤트 속성에 대입되는 함수를 "이벤트 핸들러" 함수 라고 부름!!
+            // > 이벤트 핸들러 함수에는 매개변수를 하나 정의할 수 있다!!
+            //   (이름음 마음대로지만 관례 상 e 라고 표현함)
+            // > 해당 방금 발생한 이벤트의 정보가 담겨있는 이벤트 객체가 매개변수로 넘어옴!!
+
+            // 이벤트 발생 시 이벤트를 당한 타겟요소를 얻어내기
+            // > id 가 btn4 인 버튼 요소를 얻어내야 함!!
+
+            // console.log(window.event);
+            // > PointerEvent 또는 MouseEvent 출력
+            //   마우스를 사용할 때 발생하는 이벤트 객체
+
+            // console.log(e);
+            // > 마찬가지로 PointEvent 또는 MouseEvent 출력
+
+            // > 이벤트 객체에는 해당 이벤트의 정보들이
+            //   속성명 : 속성값 형태로 쭉 적혀있음!!
+            // > 그 중에서도 이벤트 객체마다 target 이라는 속성이 존재하고,
+            //   target 속성에 방금 그 이벤트를 당한 타겟 요소가 속성값으로 담기게 됨!!
+
+            // window.event.target == e.target == this
+            console.log(window.event.target);
+            console.log(e.target);
+
+            console.log(this);
+            // > 자바스크립트의 매소드 속성 내부에서
+            //   현재 이 속성을 감싸는 객체를 지칭할 경우
+            //   this 로 지칭 가능함!!
+
+            // > 현재 이벤트를 당한 타겟 요소에 간단한 효과 부여
+            window.event.target.style.backgroundColor = "red"; // 배경색
+            e.target.innerHTML = "버튼이 클릭됨!!";
+            this.style.color = "white"; // 글씨색
+
+        };
+
+        // 표준 이벤트 모델 방식
+        document.getElementById("btn5").addEventListener("click", function(e) {
+
+            // 위에서 봤었던 고전 이벤트 모델 방식과 마찬가지로
+            // 이벤트 핸들러 함수에 이름이 없는 방식이기 때문에
+
+            // 타겟을 얻어올 경우
+            console.log(window.event.target);
+            console.log(e.target);
+            console.log(this);
+            // > 고전 이벤트 모델 방식과 타겟을 얻어오는 방법이 완전히 동일함!!
+        });
+
+        // 인라인 이벤트 모델 방식
+        function test2(e) {
+
+            console.log(window.event.target); // 타겟 얻어옴 O
+
+            // console.log(e.target); // e 가 undefined 임!!
+            // > Cannot read properties of undefined
+            // > 인라인 이벤트 모델 방식은 이름이 있는 선언적 함수를 직접 호출해서
+            //   이벤트를 걸어주는 방법이기 때문에
+            //   매개변수로 해당 이벤트에 대한 정보를 받아올 수 없다!!
+
+            // console.log(this);
+            // > window 객체가 출력되고 있음!!
+            // > 선언적 함수에서는 this 가 window 를 지칭한다!!
+
+            // > 인라인 이벤트 모델 방식에서는
+            //   타겟을 얻어올 때 window.event.target 만 가능!!
+        }
+
+        // 인라인 이벤트 모델 방식2
+        // test3(this);
+
+        function test3(el) {
+
+            console.log(el);
+            // > this 매개변수로 전달한 경우는 타겟이 바로 넣어온다!!
+        }
+    </script>
+
+    <br><br>
+
+    <hr>
+
+    <h2>4. 태그별 기본적으로 가지고 있는 이벤트 제거</h2>
+
+    <!--
+        - html 요소마다 기본적으로 기본 스타일을 갖고 있는 요소들이 종종 있음!!
+          p, ul 요소는 기본적으로 위아래 padding 을 갖고있었음!!
+          a 요소는 기본적으로 밑줄 스타일 및 글자색 스타일을 갖고 있었음!!
+
+        - 마찬가지로
+          html 요소마다 기본적으로 자바스크립트 이벤트를 갖고 있는 경우도 종종 있음!!
+          예) form 태그 내의 reset 버튼 
+              - 클릭 시 같은 form 태그 내의 입력값들을 초기화 해주는 이벤트
+              a 태그 내의 href 속성
+              - 클릭 시 href 속성에 제시된 url 로 페이지를 이동시켜주는 이벤트
+              form 태그 내의 submit 버튼
+              - 클릭 시 사용자가 입력한 값들을 action 에 제시되어있는 url 로
+                method 에 제시되어있는 방법으로 "요청" 하는 이벤트
+
+        - 이런 기본적으로 부여되어있는 이벤트들을 "기본이벤트" 라고 부른다!!
+          (간혹 가다가 기본이벤트들이 걸리적 거리는 경우가 종종 생기게 된다!!)
+    -->
+
+    <p>
+        - 기본적으로 이벤트를 갖고 있는 요소 <br>
+
+        1. a 태그
+        : 클릭 시 href 속성에 제시된 url 을 요청하는 기본이벤트 보유
+
+        <br>
+
+        2. form 태그 내의 submit 버튼
+        : 클릭 시 사용자가 입력한 값들을 action 에 제시되어있는 url 로
+          method 에 제시되어있는 방법으로 "요청" 을 하는 기본이벤트 보유
+
+        <br>
+
+        - 태그 내에 기본적으로 설정되어있는 이벤트를 제거하고자 한다면
+          (즉, 기본이벤트가 실행 안되게끔 막고 싶다면)
+          이벤트 속성 내부에 return false; 구문이 있어야만 한다!!
+    </p>
+
+    <br><br>
+
+    <a href="http://www.naver.com" onclick="alert('ㅋㅋㅋㅋ'); return false;">
+        네이버로 이동
+    </a>
+    <!--
+        - 기본이벤트가 있는 요소에 onclick 속성을 부여하면
+          onclick 이 우선적으로 기본이벤트보다 먼저 실행하게 됨!!
+          (기본이벤트가 더 우선순위가 낮음!! 더 이후에 실행됨!!)
+    
+        - 기본이벤트가 연이어져서 수행이 되지 않게 하려면
+          return false; 를 적어주면 됨!!
+          (return false; 로 인해 다음 코드인 기본이벤트 코드가 실행되지 않게끔 막아줌)
+    -->
+
+    <a href="http://www.naver.com" onclick="test4(); return false;">
+        네이버로 이동
+    </a>
+
+    <script>
+        function test4() {
+
+            alert("ㅋㅋㅋㅋ");
+            return false;
+        }
+    </script>
+
+    <!--
+        - 선언적 함수를 쓰더라도 최종적으로 이벤트 속성 내부에서 명사적으로
+          return false; 구문이 작성되어있지 않으면 기본이벤트가 제거되지 않음!!
+    -->
+
+    <a href="http://www.naver.com" onclick="return test5();">
+        네이버로 이동
+    </a>
+
+    <script>
+        function test5() {
+
+            if(confirm("네이버로 이동하시겠습니까?")) {
+                // > 네이버로 이동
+
+                return true;
+            
+            } else {
+                // > 네이버로 이동되면 안됨 (기본이벤트를 막아야함)
+
+                return false;
+            }
+        }
+    </script>
+
+    <!--
+        - 그래서 주로 선택적으로 언제는 기본이벤트를 실행시키고,
+          언제는 기본이벤트를 막는 그런 경우에 많이 쓰이는 스킬임!!
+    -->
+
+    <br><br>
+
+    <!--
+        - form 태그 내부의 submit 버튼의 기본이벤트를 제거하는 예시
+        - 중요!!! (무조건 쓰임!!!)
+    -->
+
+    <h4>회원 가입</h4>
+
+    <form action="member/insert" method="post">
+
+        아이디 :
+        <input type="text" name="userId" id="userId">
+        <br>
+        <label style="font-size : 10px; color : gray;">
+            영문자 또는 숫자로만 5~12자 사이로 입력해주세요.
+        </label>
+
+        <br><br>
+
+        비밀번호 :
+        <input type="password" name="userPwd" id="userPwd">
+
+        <br><br>
+
+        비밀번호 확인 :
+        <input type="password" name="checkPwd" id="checkPwd">
+        <br>   
+        <label style="font-size : 10px; color : gray">
+            비밀번호와 동일하게 입력해주세요.
+        </label>
+
+        <!-- 간단하게 여기까지만 입력받게끔 구현 -->
+
+        <br><br>
+
+        <input type="submit" value="회원가입" onclick="return validate();">
+        <!--
+            - submit 버튼에 이벤트를 부여하지 않았음에도 불구하고
+              클릭 시 화면이 넘어가고 있음!!
+              action 에 지정한 url 로 method 에 지정한 방법으로 요청을 보내는
+              기본이벤트를 갖고 있기 때문!!
+
+            - 이 form 내부에서
+              아이디, 비번 모두 아래에 적힌 조건을 만족하다면 기본이벤트를 살리고
+              아이디, 비번 둘중에 하나라도 아래에 적힌 조건을 만족하지 않는다면
+              기본이벤트를 제거해줘야 함!! (회원가입 요청이 들어가지 못하도록)
+
+            * 유효성 검사
+            - 서버로 요청을 보내기 전에
+              요청 시 전달값에 (즉, 사용자가 form 에 입력한 값들에)
+              문제가 있나 없나 미리 검사해주는 과정
+            - validate() 함수를 정의해서 구현해보자!!
+        -->
+    </form>
+
+    <script>
+        // 유효성 검사용 함수 - vaildate()
+        // > 사용자가 입력한 값들이 모두 문제가 없다면 true / 하나라도 문제가 있다면 false
+        function validate() {
+            
+            // 우선 사용자가 입력한 값들을 변수에 담기
+            let userId = document.getElementById("userId").value; // "user01"
+            let userPwd = document.getElementById("userPwd").value; // "pass01"
+            let checkPwd = document.getElementById("checkPwd").value; // "pass01"
+
+            // console.log(userId, userPwd, checkPwd)
+            
+            // 유효성 검사 항목들
+            // 1. 비밀번호 값과 비밀번호 확인 값이 일치해야함
+            // 2. 아이디가 영문자 또는 숫자로만 5~12자 사이여야만함
+            // > 둘 다 만족해야 return true;
+            //   둘중에 하나라도 만족하지 않으면 return false;
+
+            // 1. 비밀번호 값과 비밀번호 확인 값이 일치해야함
+            if(userPwd != checkPwd) {
+                // > 일치하지 않을 경우
+
+                alert("비밀번호가 일치하지 않습니다.")
+
+                // 비밀번호 확인 다시 입력 유도
+                document.getElementById("checkPwd").focus();
+                // > 선택된 텍스트 상자에 focus 효과를 주는 메소드
+
+                return false;
+            }
+
+            // 2. 아이디가 영문자 또는 숫자로만 5~12자 사이여야만 함
+            /*
+            if(5 <= userId.length && userId.length <= 12) {
+                // > 글자수 체크 onclick
+                
+                // userID 를 이루는 각각의 문자들이 영문자(소문자, 대문자) 또는
+                // 숫자로만 이루어져 있는지 또 검사
+                for(let i = 0; i < userId.length; i++) {
+
+                    if(userId.charAt(i) ~~~~) {
+                    
+                    }
+                }
+            }
+            */
+            // > 아이디 문자열 내용물을 검사하는 로직이 너무 복잡하기 때문에
+            //   실무에서는 위와 같은 로직을 한땀 직접 쓰지 않음!!
+            // > "정규표현식" 이라는 개념을 적용해서 해당 조건에 맞는 문자열인지를 한번에 검사!!
+            
+            // > 정규표현식 (Regular Expression) 을 이용해서
+            //   유효한 아이디에 해당하는 "특정 패턴" 을 만들어보자!!
+            let regExp = /^[a-zA-Z0-9]{5,12}$/;
+
+            // 1단계) // : 정규표현식 객체로 패턴을 가두겠다. (/패턴/)
+            // 2단계) /^$/ : ^ 시작부터 $ 끝까지
+            // 3단계) /^[]$/ : [] 내의 문자들 중 하나라도 존재할 경우 (한글자를 의미)
+            // 4단계) /^[a-z]$/ : 소문자 a 부터 z 까지
+            // 5단계) /^[a-zA-Z]$/ : 대문자 A 부터 Z 까지
+            // 6단계) /^[a-zA-Z0-9]$/ : 숫자 0 부터 9 까지
+            // 7단계) /^[a-zA-Z0-9]{5,12}$/ : 5글자 이상 12글자 이하인지 체크
+
+            // 아이디가 위에서 만든 패턴에 만족하는지만 검사하면 끝!!
+            if(!regExp.test(userId)) { // 유효한 아이디가 "아니" 라면
+                // > 정규표현식 객체에서 제공하는 test 메소드를 이용해서
+                //   인자로 넘긴 검사할 문자열 userId 가 패턴에 만족되면 true / 아니면 false 반환하기
+
+                alert("유효한 아이디가 아닙니다. 다시 입력해 주세요.");
+
+                // 아이디 다시 입력 유도
+                document.getElementById("userId").select();
+                // > 텍스트 상자에 입력된 value 를 드래그해주는 효과
+
+                return false;
+            }
+
+            // 이 시점까지 도달했다라는 것은 모두 다 제대로 입력했다라는것!!
+            return true; // 안써도 상관없긴함
+        }
+    </script>
+
+</body>
+</html>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
